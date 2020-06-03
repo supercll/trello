@@ -5,9 +5,11 @@ import {
     Query,
     Body,
     Post,
-    Header
+    Header,
+    Ctx
 } from 'koa-ts-controllers';
-import {IsNumberString} from 'class-validator';
+import {Context} from 'koa';
+import {IsNumberString, IsNotEmpty} from 'class-validator';
 import Boom from '@hapi/Boom';
 
 class GetUsersQuery {
@@ -16,6 +18,20 @@ class GetUsersQuery {
         message: 'page必须是数字'
     })
     page: number;
+
+}
+
+class PostUserBody {
+
+    @IsNotEmpty({
+        message: '用户名不能为空'
+    })
+    name: string;
+
+    @IsNotEmpty({
+        message: '密码不能为空'
+    })
+    password: string;
 
 }
 
@@ -44,18 +60,24 @@ class TestController {
     //     return '当前params中的用户id是：' + q.id;
     // }
 
-    // @Post('/user')
-    // async postUser(
-    //     @Body() body: {
-    //         name: string;
-    //         password: string
-    //     },
-    //     @Header() h: any
-    // ) {
-    //     console.log(body);
-    //     console.log('header', h);
-    //     return `当前提交的数据是：${JSON.stringify(body)}`;
-    // }
+    @Post('/user')
+    async postUser(
+        @Ctx() ctx: Context,
+        @Body() body: PostUserBody,
+        @Header() h: any
+    ) {
+        // console.log(body);
+        // console.log('header', h);
+        // return `当前提交的数据是：${JSON.stringify(body)}`;
+
+        ctx.status = 201;
+        return {
+            id: 1,
+            name: body.name,
+            createAt: new Date()
+        }
+
+    }
 
 
     @Get('/users')
@@ -64,9 +86,9 @@ class TestController {
     ) {
 
         // 业务逻辑出现了一些错误，比如用户不存在，用户名已经被注册了
-        if (true) { // 用户名已经被注册了
-            throw Boom.notFound('注册失败', '用户已经被注册了');
-        }
+        // if (true) { // 用户名已经被注册了
+        //     throw Boom.notFound('注册失败', '用户已经被注册了');
+        // }
 
         return '传过来的query：' + JSON.stringify(q);
     }

@@ -22,7 +22,7 @@ import Boom from '@hapi/Boom';
             path.resolve( __dirname, 'controllers/**/*' )
         ],
         errorHandler: async (err: any, ctx: Context) => {
-            // console.log(err);
+            console.log(err);
 
             let status = 500;
             let body: any = {
