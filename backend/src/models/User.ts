@@ -49,7 +49,7 @@ export class User extends Model<User> {
     @Column
     set password(val: string) {
         let md5 = crypto.createHash('md5');
-        let newPassword = md5.update(`${val}`).digest('hex');
+        let newPassword = md5.update(val).digest('hex');
         this.setDataValue('password', newPassword);
     }
 
