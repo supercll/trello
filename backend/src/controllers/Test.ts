@@ -6,11 +6,13 @@ import {
     Body,
     Post,
     Header,
-    Ctx
+    Ctx,
+    Flow
 } from 'koa-ts-controllers';
 import {Context} from 'koa';
 import {IsNumberString, IsNotEmpty} from 'class-validator';
 import Boom from '@hapi/Boom';
+import authorization from '../middlewares/authorization';
 
 class GetUsersQuery {
 
@@ -36,6 +38,7 @@ class PostUserBody {
 }
 
 @Controller('/test')
+
 class TestController {
 
     // @Get('/hello')
@@ -91,6 +94,19 @@ class TestController {
         // }
 
         return '传过来的query：' + JSON.stringify(q);
+    }
+
+    @Get('/auth')
+    @Flow([authorization])
+    async auth(
+        @Ctx() ctx: Context
+    ) {
+        return '不登录看不到';
+    }
+
+    @Get('/noauth')
+    async noAuth() {
+        return '随便看';
     }
     
 
