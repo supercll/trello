@@ -5,20 +5,20 @@
         <div class="section-wrapper">
             <div class="account-form">
                 <h1>注册 Trello</h1>
-                <form id="login-form" method="POST">
+                <form id="login-form" method="POST" @submit.prevent="registerSubmit">
                     <div>
                         <label>
-                            <input class="form-field" autofocus="autofocus" placeholder="输入用户名"/>
+                            <input v-model="user.name" class="form-field" autofocus="autofocus" placeholder="输入用户名"/>
                         </label>
                     </div>
                     <div>
                         <label>
-                            <input type="password" class="form-field" placeholder="输入密码"/>
+                            <input v-model="user.password" type="password" class="form-field" placeholder="输入密码"/>
                         </label>
                     </div>
                     <div>
                         <label>
-                            <input type="password" class="form-field" placeholder="再次确认密码"/>
+                            <input v-model="user.rePassword" type="password" class="form-field" placeholder="再次确认密码"/>
                         </label>
                     </div>
                     <div>
@@ -30,5 +30,44 @@
             </div>
 
         </div>
+
+<!--        <t-message></t-message>-->
     </div>
 </template>
+
+<script>
+
+    import TMessage from '@/components/TMessage';
+
+    export default {
+        name: 'Register',
+
+        data() {
+            return {
+                user: {
+                    name: '',
+                    password: '',
+                    rePassword: ''
+                }
+            }
+        },
+
+        // components: {
+        //     TMessage
+        // },
+
+        methods: {
+            registerSubmit() {
+                // 必要的验证
+                if (this.user.name.trim() === '' || this.user.password.trim() === '') {
+                    return alert('用户名和密码不能为空');
+                }
+                if (this.user.password !== this.user.rePassword) {
+                    return alert('两次输入密码不一致');
+                }
+
+                console.log(this.user);
+            }
+        }
+    }
+</script>
