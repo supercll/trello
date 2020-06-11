@@ -37,8 +37,6 @@
 
 <script>
 
-    import TMessage from '@/components/TMessage';
-
     export default {
         name: 'Register',
 
@@ -52,18 +50,14 @@
             }
         },
 
-        // components: {
-        //     TMessage
-        // },
-
         methods: {
             registerSubmit() {
                 // 必要的验证
                 if (this.user.name.trim() === '' || this.user.password.trim() === '') {
-                    return alert('用户名和密码不能为空');
+                    return this.$message.error('用户名和密码不能为空');
                 }
                 if (this.user.password !== this.user.rePassword) {
-                    return alert('两次输入密码不一致');
+                    return this.$message.error('两次输入密码不一致');
                 }
 
                 console.log(this.user);

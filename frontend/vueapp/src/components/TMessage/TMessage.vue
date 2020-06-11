@@ -26,7 +26,8 @@
                 offset: 20,
                 closed: false,
                 duration: 1000,
-                timer: null
+                timer: null,
+                onClose: null
             }
         },
 
@@ -41,6 +42,9 @@
         methods: {
             close() {
                 this.closed = true;
+                if (typeof this.onClose === 'function') {
+                    this.onClose();
+                }
             }
         }
     }
