@@ -51,7 +51,7 @@
         },
 
         methods: {
-            registerSubmit() {
+            async registerSubmit() {
                 // 必要的验证
                 if (this.user.name.trim() === '' || this.user.password.trim() === '') {
                     return this.$message.error('用户名和密码不能为空');
@@ -60,7 +60,12 @@
                     return this.$message.error('两次输入密码不一致');
                 }
 
-                console.log(this.user);
+                try {
+                    this.$store.dispatch('user/register', {
+                        ...this.user
+                    });
+                    this.$router.push({name: 'Login'});
+                } catch (e) {}
             }
         }
     }
