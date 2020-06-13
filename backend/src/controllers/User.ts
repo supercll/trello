@@ -65,10 +65,14 @@ export class UserController {
             where: {name}
         });
 
+        if (!user) {
+            throw Boom.notFound('登录失败', '用户不存在');
+        }
+
         let md5 = crypto.createHash('md5');
         password = md5.update(password).digest('hex');
         if (password !== user.password) {
-            throw Boom.forbidden('登录失败', '用户不存在或密码错误');
+            throw Boom.forbidden('登录失败', '密码错误');
         }
 
         let userInfo = {

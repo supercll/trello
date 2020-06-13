@@ -24,7 +24,7 @@
                     <div>
                         <input type="submit" class="btn btn-success" value="注册"/>
                         <span class="signin-signup-separator">或者</span>
-                        <input type="button" class="btn" value="登录"/>
+                        <router-link :to="{name: 'Login'}" tag="button" class="btn">登录</router-link>
                     </div>
                 </form>
             </div>
@@ -61,11 +61,12 @@
                 }
 
                 try {
-                    this.$store.dispatch('user/register', {
+                    await this.$store.dispatch('user/register', {
                         ...this.user
                     });
+
                     this.$router.push({name: 'Login'});
-                } catch (e) {}
+                }catch (e) {}
             }
         }
     }
