@@ -287,35 +287,6 @@
 
         </main>
 
-        <!--弹窗，可用于对话框、弹出式菜单等-->
-        <!--弹出式菜单-->
-        <div class="popup" style="left: 930px;top: 98px;display: block">
-            <div class="popup-header">
-                <span class="popup-title">Title</span>
-                <a class="popup-header-close">
-                    <i class="icon icon-close"></i>
-                </a>
-            </div>
-
-            <div class="popup-content">
-                <ul class="popup-menu-list">
-                    <li><span>添加卡…</span></li>
-                    <li><span>复制列表…</span></li>
-                    <li><span>移动列表</span></li>
-                    <li><span>关注 </span></li>
-                </ul>
-                <hr/>
-                <ul class="popup-menu-list">
-                    <li><span>移动此列表中的所有卡片…</span></li>
-                    <li><span>归档这个列表中的所有卡…</span></li>
-                </ul>
-                <hr/>
-                <ul class="popup-menu-list">
-                    <li><span>将此列表进行归档</span></li>
-                </ul>
-            </div>
-        </div>
-
 
         <router-view></router-view>
 

@@ -1,26 +1,7 @@
 <template>
     <div id="home">
         <!--头部-->
-        <header>
-            <div class="left">
-                <a href="" class="btn btn-icon">
-                    <i class="icon icon-home"></i>
-                </a>
-                <a href="" class="btn btn-icon">
-                    <i class="icon icon-board"></i>
-                    <span class="txt">看板</span>
-                </a>
-            </div>
-            <a href="/" class="logo"></a>
-            <div class="right">
-                <a href="" class="btn btn-icon">
-                    <i class="icon icon-add"></i>
-                </a>
-                <button class="avatar">
-                    <span>Z</span>
-                </button>
-            </div>
-        </header>
+        <t-header></t-header>
 
         <main>
 
@@ -46,3 +27,15 @@
         </main>
     </div>
 </template>
+
+<script>
+    import THeader from "@/components/THeader";
+
+    export default {
+        name: 'Home',
+
+        components: {
+            THeader
+        }
+    }
+</script>
