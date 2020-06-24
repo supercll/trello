@@ -28,9 +28,6 @@
 
             <h2>
                 test
-                <span class="btn btn-icon">
-                    邀请
-                </span>
             </h2>
 
             <!--面板容器-->
