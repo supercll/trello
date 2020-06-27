@@ -53,9 +53,14 @@ export const login = data => {
 // 获取所有面板
 export const getBoards = () => {
     return axios({
-        method: 'get',
         url: '/board'
     });
+};
+// 获取一个面板
+export const getBoard = id => {
+    return axios({
+        url: '/board/' + id
+    })
 };
 // 提交一个新的面板
 export const postBoard = data => {

@@ -43,12 +43,13 @@
 
         computed: {
             ...mapState('board', {
-                boards: state => state.boards
+                boards: state => state.boards,
+                inited: state => state.inited
             })
         },
 
         created() {
-            if (this.boards === null) {
+            if (!this.inited) {
                 this.$store.dispatch('board/getBoards');
             }
         },

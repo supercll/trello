@@ -2,32 +2,13 @@
     <div id="board">
 
         <!--头部-->
-        <header>
-            <div class="left">
-                <a href="" class="btn btn-icon">
-                    <i class="icon icon-home"></i>
-                </a>
-                <a href="" class="btn btn-icon">
-                    <i class="icon icon-board"></i>
-                    <span class="txt">看板</span>
-                </a>
-            </div>
-            <a href="/" class="logo"></a>
-            <div class="right">
-                <a href="" class="btn btn-icon">
-                    <i class="icon icon-add"></i>
-                </a>
-                <button class="avatar">
-                    <span>Z</span>
-                </button>
-            </div>
-        </header>
+        <t-header></t-header>
 
         <!--正文-->
-        <main>
+        <main v-if="board">
 
             <h2>
-                test
+                {{board.name}}
             </h2>
 
             <!--面板容器-->
@@ -36,6 +17,7 @@
 
                 <!--面板列表容器-->
                 <div class="list-wrap">
+                    <div class="list-placeholder"></div>
 
                     <div class="list">
                         <div class="list-header">
@@ -199,6 +181,8 @@
                 <!--面板列表容器-->
                 <div class="list-wrap list-adding">
 
+                    <div class="list-placeholder"></div>
+
                     <div class="list">
                         <div class="list-header">
                             <textarea class="form-field-input">To Do</textarea>
@@ -246,13 +230,6 @@
 
                 </div>
 
-                <!--拖拽-->
-                <div class="list-wrap list-placeholder">
-
-                    <div></div>
-
-                </div>
-
 
                 <!--无内容列表容器-->
                 <div class="list-wrap no-content list-adding">
@@ -289,3 +266,28 @@
 
     </div>
 </template>
+
+
+<script>
+    import THeader from "@/components/THeader";
+
+    export default {
+        name: 'Board',
+
+        components: {
+            THeader
+        },
+
+        computed: {
+            board() {
+                return this.$store.getters['board/getBoard'](this.$route.params.id);
+            }
+        },
+
+        created() {
+            if (!this.board) {
+                this.$store.dispatch('board/getBoard', this.$route.params.id);
+            }
+        }
+    }
+</script>
