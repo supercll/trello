@@ -70,3 +70,33 @@ export const postBoard = data => {
         data
     });
 };
+
+// 获取一个指定面板下的所有列表集合
+export const getLists = boardId => {
+    return axios({
+        url: '/list',
+        params: {
+            boardId
+        }
+    })
+};
+// 添加一个新的列表
+export const postList = data => {
+    return axios({
+        method: 'post',
+        url: '/list',
+        data
+    })
+};
+// 编辑一个指定的列表
+export const putList = data => {
+    return axios({
+        method: 'put',
+        url: '/list/' + data.id,
+        data: {
+            boardId: data.boardId,
+            name: data.name,
+            order: data.order
+        }
+    })
+}

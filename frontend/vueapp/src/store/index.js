@@ -5,6 +5,7 @@ Vue.use(Vuex)
 
 import user from './user';
 import board from './board';
+import list from './list';
 
 export default new Vuex.Store({
     state: {
@@ -15,6 +16,7 @@ export default new Vuex.Store({
     },
     modules: {
         user,
-        board
+        board,
+        list
     }
 })
