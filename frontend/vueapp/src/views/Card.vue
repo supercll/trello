@@ -1,5 +1,5 @@
 <template>
-    <div class="window-overlay" style="display: block">
+    <div class="window-overlay" style="display: block" v-if="card && list">
         <!--弹出式窗口-->
         <div class="popup">
 
@@ -9,14 +9,14 @@
                         <span class="icon icon-card"></span>
                     </div>
                     <div class="popup-title-text">
-                        <textarea class="form-field-input">平台规划</textarea>
+                        <textarea class="form-field-input" @blur="editCardName">{{card.name}}</textarea>
                     </div>
                     <div class="popup-title-detail">
-                        在列表 Done 中
+                        在列表 {{list.name}} 中
                     </div>
                 </div>
                 <a class="popup-header-close">
-                    <i class="icon icon-close"></i>
+                    <i class="icon icon-close" @click="$router.back()"></i>
                 </a>
             </div>
 
@@ -36,7 +36,7 @@
                     </div>
 
                     <p class="description">
-                        <textarea class="form-field-input">To Do</textarea>
+                        <textarea class="form-field-input" @blur="editCardDescription">{{card.description}}</textarea>
                     </p>
 
                 </div>
@@ -53,28 +53,15 @@
                         </div>
                     </div>
 
-                    <ul class="attachments">
-                        <li class="attachment">
-                            <div class="attachment-thumbnail" style="background-image: url('https://trello-attachments.s3.amazonaws.com/5ddf961b5e861107e5f2de49/200x200/96d8fa19e335be20c102d394ef4bed71/logo.png')"></div>
+                    <ul class="attachments" v-if="Array.isArray(card.attachments)">
+                        <li class="attachment" v-for="attachment of card.attachments" :key="attachment.id">
+                            <div class="attachment-thumbnail" :style="`background-image: url(${server.staticPath}${attachment.path})`"></div>
                             <p class="attachment-detail">
-                                <span class="attachment-thumbnail-name"><strong>icon_nav_button.png</strong></span>
+                                <span class="attachment-thumbnail-name"><strong>{{attachment.detail.name}}</strong></span>
                                 <span class="attachment-thumbnail-descriptions">
-                                    <span class="datetime">2019年12月29日晚上11点04分</span>
-                                    <span> - </span>
-                                    <u>删除</u>
-                                </span>
-                                <span class="attachment-thumbnail-operation">
-                                    <i class="icon icon-card-cover"></i>
-                                    <u>移除封面</u>
-                                </span>
-                            </p>
-                        </li>
-                        <li class="attachment">
-                            <div class="attachment-thumbnail" style="background-image: url('https://trello-attachments.s3.amazonaws.com/5ddf961b5e861107e5f2de49/200x200/96d8fa19e335be20c102d394ef4bed71/logo.png')"></div>
-                            <p class="attachment-detail">
-                                <span class="attachment-thumbnail-name"><strong>icon_nav_button.png</strong></span>
-                                <span class="attachment-thumbnail-descriptions">
-                                    <span class="datetime">2019年12月29日晚上11点04分</span>
+                                    <span class="datetime">
+                                        {{attachment.createdAt|dateTime}}
+                                    </span>
                                     <span> - </span>
                                     <u>删除</u>
                                 </span>
@@ -229,3 +216,59 @@
         </div>
     </div>
 </template>
+
+<script>
+
+    import dateTime from '@/filters/dateTime';
+
+    export default {
+        name: 'Card',
+
+        filters: {
+            dateTime
+        },
+
+        computed: {
+            server() {
+                return this.$store.state.server;
+            },
+            list() {
+                return this.$store.getters['list/getList'](this.$route.params.listId)
+            },
+            card() {
+                return this.$store.getters['card/getCard'](this.$route.params.cardId)
+            }
+        },
+
+        methods: {
+            editCardName(e) {
+                let {value, innerHTML} = e.target;
+
+                if (value !== innerHTML) {
+                    try {
+                        this.$store.dispatch('card/editCard', {
+                            id: this.card.id,
+                            name: value,
+                        });
+
+                        this.$message.success('卡片名称修改成功');
+                    } catch (e) {}
+                }
+            },
+            editCardDescription(e) {
+                let {value, innerHTML} = e.target;
+
+                if (value !== innerHTML) {
+                    try {
+                        this.$store.dispatch('card/editCard', {
+                            id: this.card.id,
+                            description: value,
+                        });
+
+                        this.$message.success('卡片简介修改成功');
+                    } catch (e) {}
+                }
+            }
+        }
+    }
+</script>

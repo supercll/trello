@@ -9,7 +9,9 @@ export default {
     },
 
     getters: {
-        getLists: ({lists}) => boardId => lists.filter(list=>list.boardId == boardId)
+        getLists: ({lists}) => boardId => lists.filter(list=>list.boardId == boardId),
+
+        getList: ({lists}) => listId => lists.find(list => list.id == listId)
     },
 
     mutations: {
@@ -24,7 +26,7 @@ export default {
         updateList: (state, data) => {
             state.lists = state.lists.map( list => {
                 if (list.id === data.id) {
-                    return data;
+                    return {...list, ...data};
                 }
                 return list;
             } );
@@ -61,7 +63,7 @@ export default {
             try {
                 let rs = await api.putList(data);
 
-                commit('updateList', rs.data);
+                commit('updateList', data);
 
                 return rs;
             } catch (e) {

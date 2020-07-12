@@ -1,4 +1,5 @@
 import databaseConfig from './database.json';
+import path from 'path';
 
 interface IDatabaseConfig {
     username: string;
@@ -18,6 +19,10 @@ const configs = {
         database: databaseConfig.development as IDatabaseConfig,
         jwt: {
             privateKey: 'kaikeba'
+        },
+        storage: {
+            dir: path.resolve(__dirname, '../attachments'),
+            prefix: '/public/attachments'
         }
     },
     test: {
@@ -28,6 +33,10 @@ const configs = {
         database: databaseConfig.test as IDatabaseConfig,
         jwt: {
             privateKey: 'kaikeba'
+        },
+        storage: {
+            dir: path.resolve(__dirname, 'attachments'),
+            prefix: '/public/attachments'
         }
     },
     production: {
@@ -38,6 +47,10 @@ const configs = {
         database: databaseConfig.production as IDatabaseConfig,
         jwt: {
             privateKey: 'kaikeba'
+        },
+        storage: {
+            dir: path.resolve(__dirname, 'attachments'),
+            prefix: '/public/attachments'
         }
     }
 };

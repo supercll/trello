@@ -22,6 +22,10 @@ import {
     getAndValidateBoardList
 } from '../validators/BoardList'
 import {BoardListCard as BoardListCardModel} from '../models/BoardListCard';
+import {Comment as CommentModel} from '../models/Comment';
+import {CardAttachment as CardAttachmentModel} from '../models/CardAttachment';
+import {Attachment as AttachmentModel} from '../models/Attachment';
+import configs from '../configs';
 
 
 @Controller('/card')
@@ -44,7 +48,7 @@ export class BoardListCardController {
         boarListCard.userId = ctx.userInfo.id;
         boarListCard.boardListId = boardListId;
         boarListCard.name = name;
-        boarListCard.description = boarListCard.description;
+        boarListCard.description = boarListCard.description || '';
 
         await boarListCard.save();
 
@@ -68,10 +72,53 @@ export class BoardListCardController {
             where: {
                 boardListId
             },
-            order: [['id', 'asc']]
+            order: [['id', 'asc']],
+            include: [
+                {
+                    model: CommentModel,
+                    attributes: ['id']
+                },
+                {
+                    model: CardAttachmentModel,
+                    include: [
+                        {
+                            model: AttachmentModel
+                        }
+                    ]
+                }
+            ]
         });
 
-        return boardListCards;
+        let boardListCardsData = boardListCards.map( (card: BoardListCardModel) => {
+            // 处理附件的路径和封面
+            let coverPath = '';
+            let attachments = card.attachments.map( attachment => {
+                let data = attachment.toJSON() as CardAttachmentModel & {path: string};
+                data.path = configs.storage.prefix + '/' + data.detail.name;
+
+                if (data.isCover) {
+                    coverPath = data.path;
+                }
+
+                return data;
+            } );
+
+            return {
+                id: card.id,
+                userId: card.userId,
+                boardListId: card.boardListId,
+                name: card.name,
+                description: card.description,
+                order: card.order,
+                createdAt: card.createdAt,
+                updatedAt: card.updatedAt,
+                attachments: attachments,
+                coverPath: coverPath,
+                commentCount: card.comments.length
+            }
+        } );
+
+        return boardListCardsData;
     }
 
     /**

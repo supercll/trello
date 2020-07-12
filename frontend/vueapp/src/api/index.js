@@ -99,4 +99,36 @@ export const putList = data => {
             order: data.order
         }
     })
-}
+};
+
+
+// 获取一个指定列表下的所有卡片
+export const getCards = boardListId => {
+    return axios({
+        url: '/card',
+        params: {
+            boardListId
+        }
+    })
+};
+// 添加一张卡片
+export const postCard = data => {
+    return axios({
+        method: 'post',
+        url: '/card',
+        data
+    })
+};
+// 编辑一个指定的卡片
+export const putCard = data => {
+    return axios({
+        method: 'put',
+        url: '/card/' + data.id,
+        data: {
+            boardListId: data.boardListId,
+            name: data.name,
+            description: data.description,
+            order: data.order
+        }
+    })
+};
