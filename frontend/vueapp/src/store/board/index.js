@@ -12,7 +12,7 @@ export default {
     },
 
     getters: {
-        getBoard: ({boards}) => id => Array.isArray(boards) ? boards.find(board => board.id == id) : null
+        getBoard: ({ boards }) => id => Array.isArray(boards) ? boards.find(board => board.id == id) : null
     },
 
     mutations: {
@@ -26,11 +26,17 @@ export default {
                 state.boards = [];
             }
             state.boards = [...state.boards, data];
+        },
+
+        removeBoard: (state, id) => {
+            state.boards = state.boards.filter(board => {
+                return board.id !== id;
+            });
         }
     },
 
     actions: {
-        getBoards: async ({commit}) => {
+        getBoards: async ({ commit }) => {
 
             try {
                 let rs = await api.getBoards();
@@ -44,7 +50,7 @@ export default {
 
         },
 
-        getBoard: async ({commit}, id) => {
+        getBoard: async ({ commit }, id) => {
             try {
                 let rs = await api.getBoard(id);
 
@@ -56,7 +62,7 @@ export default {
             }
         },
 
-        postBoard: async ({commit}, data) => {
+        postBoard: async ({ commit }, data) => {
             try {
 
                 let rs = await api.postBoard(data);
@@ -68,7 +74,16 @@ export default {
             } catch (e) {
                 throw e;
             }
+        },
+
+        removeBoard: async ({ commit }, id) => {
+            try {
+                await api.removeBoard(id);
+                commit('removeBoard', id);
+            } catch (e) {
+                throw e;
+            }
         }
     }
 
-}
+};

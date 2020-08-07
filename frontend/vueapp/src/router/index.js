@@ -1,15 +1,15 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import store from '@/store'
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+import store from '@/store';
 
-const Home = () => import(/* webpackChunkName: "Home" */ '../views/Home.vue')
-const Board = () => import(/* webpackChunkName: "Board" */ '../views/Board.vue')
-const Card = () => import(/* webpackChunkName: "Card" */ '../views/Card.vue')
-const Register = () => import(/* webpackChunkName: "Register" */ '../views/Register.vue')
-const Login = () => import(/* webpackChunkName: "Login" */ '../views/Login.vue')
-const NotFound = () => import(/* webpackChunkName: "NotFound" */ '../views/NotFound.vue')
+const Home = () => import(/* webpackChunkName: "Home" */ '../views/Home.vue');
+const Board = () => import(/* webpackChunkName: "Board" */ '../views/Board.vue');
+const Card = () => import(/* webpackChunkName: "Card" */ '../views/Card.vue');
+const Register = () => import(/* webpackChunkName: "Register" */ '../views/Register.vue');
+const Login = () => import(/* webpackChunkName: "Login" */ '../views/Login.vue');
+const NotFound = () => import(/* webpackChunkName: "NotFound" */ '../views/NotFound.vue');
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
 const routes = [
     {
@@ -50,7 +50,7 @@ const routes = [
         name: 'NotFound',
         component: NotFound
     }
-]
+];
 
 const router = new VueRouter({
     mode: 'history',
@@ -62,7 +62,7 @@ store.commit('user/initUserInfo');
 router.beforeEach((to, from, next) => {
     // 如果该路由需要鉴权，则验证用户的信息，如果不通过则跳转到登录页
     if (
-        to.matched.some( matched => matched.meta.requiresAuth )
+        to.matched.some(matched => matched.meta.requiresAuth)
         &&
         !store.state.user.info
     ) {
@@ -74,4 +74,9 @@ router.beforeEach((to, from, next) => {
     }
 });
 
-export default router
+router.afterEach((to, from) => {
+    if (to.path === "/") {
+    }
+});
+
+export default router;

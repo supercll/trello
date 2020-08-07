@@ -11,7 +11,7 @@
         </div>
         <router-link :to="{name: 'Home'}" class="logo"></router-link>
         <div class="right">
-            <a href="" class="btn btn-icon">
+            <a href class="btn btn-icon">
                 <i class="icon icon-add"></i>
             </a>
 
@@ -27,49 +27,47 @@
 </template>
 
 <script>
-    import TPopup from "@/components/TPopup";
-    import TPopupMenu from "@/components/TPopupMenu";
-    import {mapState} from 'vuex';
+import TPopup from "@/components/TPopup";
+import TPopupMenu from "@/components/TPopupMenu";
+import { mapState } from "vuex";
 
-    export default {
-        name: 'THeader',
+export default {
+    name: "THeader",
 
-        components: {
-            TPopup,
-            TPopupMenu
-        },
+    components: {
+        TPopup,
+        TPopupMenu
+    },
 
-        data() {
-            return {
-                menuItems: [
-                    {name: '退出', command: 'logout'}
-                ]
+    data() {
+        return {
+            menuItems: [{ name: "退出", command: "logout" }]
+        };
+    },
+
+    computed: {
+        ...mapState("user", {
+            user: state => state.info
+        })
+    },
+
+    methods: {
+        execute(command) {
+            switch (command) {
+                case "logout":
+                    this.logout();
+                    break;
+                default:
+                    break;
             }
         },
 
-        computed: {
-            ...mapState('user', {
-                user: state => state.info
-            })
-        },
+        logout() {
+            this.$store.dispatch("user/logout");
 
-        methods: {
-            execute(command) {
-                switch (command) {
-                    case 'logout':
-                        this.logout();
-                        break;
-                    default:
-                        break;
-                }
-            },
-
-            logout() {
-                this.$store.dispatch('user/logout');
-
-                this.$router.push({name: 'Login'});
-                // this.$refs.tPopup.close();
-            }
+            this.$router.push({ name: "Login" });
+            // this.$refs.tPopup.close();
         }
     }
+};
 </script>

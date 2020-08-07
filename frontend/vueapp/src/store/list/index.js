@@ -9,9 +9,9 @@ export default {
     },
 
     getters: {
-        getLists: ({lists}) => boardId => lists.filter(list=>list.boardId == boardId),
+        getLists: ({ lists }) => boardId => lists.filter(list => list.boardId == boardId),
 
-        getList: ({lists}) => listId => lists.find(list => list.id == listId)
+        getList: ({ lists }) => listId => lists.find(list => list.id == listId)
     },
 
     mutations: {
@@ -24,18 +24,23 @@ export default {
         },
 
         updateList: (state, data) => {
-            state.lists = state.lists.map( list => {
+            state.lists = state.lists.map(list => {
                 if (list.id === data.id) {
-                    return {...list, ...data};
+                    return { ...list, ...data };
                 }
                 return list;
-            } );
+            });
+        },
+        removeList: (state, data) => {
+            state.lists = state.lists.filter(list => {
+                return list.id !== data.id;
+            });
         }
     },
 
     actions: {
 
-        getLists: async ({commit}, boardId) => {
+        getLists: async ({ commit }, boardId) => {
             try {
                 let rs = await api.getLists(boardId);
 
@@ -47,7 +52,7 @@ export default {
             }
         },
 
-        postList: async ({commit}, data) => {
+        postList: async ({ commit }, data) => {
             try {
                 let rs = await api.postList(data);
 
@@ -59,7 +64,7 @@ export default {
             }
         },
 
-        editList: async ({commit}, data) => {
+        editList: async ({ commit }, data) => {
             try {
                 let rs = await api.putList(data);
 
@@ -69,8 +74,17 @@ export default {
             } catch (e) {
                 throw e;
             }
+        },
+
+        removeList: async ({ commit }, data) => {
+            try {
+                await api.removeList(data.id);
+                commit("removeList", data);
+            } catch (e) {
+                throw e;
+            }
         }
 
     }
 
-}
+};
