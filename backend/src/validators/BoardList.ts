@@ -2,9 +2,10 @@ import {
     IsNotEmpty,
     IsNumberString,
     Min, ValidateIf,
+    MaxLength,
     IsNumber
 } from 'class-validator';
-import {BoardList as BoardListModel} from "../models/BoardList";
+import { BoardList as BoardListModel } from "../models/BoardList";
 import Boom from "@hapi/boom";
 
 export class GetListsQuery {
@@ -26,25 +27,31 @@ export class PostAddListBody {
     @IsNotEmpty({
         message: '列表名称不能为空'
     })
+    @MaxLength(40, {
+        message: '卡片名称不能大于40个字符'
+    })
     name: string;
 }
 
 
 export class PutUpdateListBody {
 
-    @ValidateIf(o=>o.boardId !== undefined)
+    @ValidateIf(o => o.boardId !== undefined)
     @Min(1, {
         message: '面板id不能为空且必须为数字'
     })
     boardId: number;
 
-    @ValidateIf(o=>o.name !== undefined)
+    @ValidateIf(o => o.name !== undefined)
     @IsNotEmpty({
         message: '列表名称不能为空'
     })
+    @MaxLength(40, {
+        message: '卡片名称不能大于40个字符'
+    })
     name: string;
 
-    @ValidateIf(o=>o.order !== undefined)
+    @ValidateIf(o => o.order !== undefined)
     @IsNumber({}, {
         message: '列表名称不能为空'
     })

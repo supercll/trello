@@ -1,11 +1,11 @@
 import configs from './configs';
-import Koa, {Context, Next} from 'koa';
-import {bootstrapControllers} from 'koa-ts-controllers';
+import Koa, { Context, Next } from 'koa';
+import { bootstrapControllers } from 'koa-ts-controllers';
 import KoaRouter from 'koa-router';
 import path from 'path';
-import KoaBodyParser from 'koa-bodyparser';
-import Boom from '@hapi/Boom';
-import {Sequelize} from 'sequelize-typescript';
+import KoaBody from 'koa-body';
+import Boom from '@hapi/boom';
+import { Sequelize } from 'sequelize-typescript';
 import jwt from 'jsonwebtoken';
 import KoaStaticCache from 'koa-static-cache';
 
@@ -30,13 +30,13 @@ import KoaStaticCache from 'koa-static-cache';
         models: [__dirname + '/models/**/*']
     });
 
-    app.use( async (ctx: Context, next: Next) => {
+    app.use(async (ctx: Context, next: Next) => {
         let token = ctx.headers['authorization'];
         if (token) {
-            ctx.userInfo = jwt.verify( token, configs.jwt.privateKey ) as UserInfo;
+            ctx.userInfo = jwt.verify(token, configs.jwt.privateKey) as UserInfo;
         }
         await next();
-    } );
+    });
 
     // 注册路由
     await bootstrapControllers(app, {
@@ -44,7 +44,7 @@ import KoaStaticCache from 'koa-static-cache';
         basePath: '/api',
         versions: [1],
         controllers: [
-            path.resolve( __dirname, 'controllers/**/*' )
+            path.resolve(__dirname, 'controllers/**/*')
         ],
         errorHandler: async (err: any, ctx: Context) => {
             console.log(err);
@@ -58,7 +58,7 @@ import KoaStaticCache from 'koa-static-cache';
 
             if (err.output) {
                 status = err.output.statusCode;
-                body = {...err.output.payload};
+                body = { ...err.output.payload };
                 if (err.data) {
                     body.errorDetails = err.data;
                 }
@@ -74,11 +74,17 @@ import KoaStaticCache from 'koa-static-cache';
         throw Boom.notFound('没有该路由');
     });
 
-    app.use( KoaBodyParser() );
-    app.use( router.routes() );
+    app.use(KoaBody({
+        multipart: true,
+        formidable: {
+            uploadDir: configs.storage.dir,
+            keepExtensions: true
+        }
+    }));
+    app.use(router.routes());
 
-    app.listen( configs.server.port, configs.server.host, () => {
+    app.listen(configs.server.port, configs.server.host, () => {
         console.log(`服务启动成功：http://${configs.server.host}:${configs.server.port}`);
-    } )
+    })
 
 })();

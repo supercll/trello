@@ -13,7 +13,7 @@ import {User} from "./User";
 import {BoardListCard} from "./BoardListCard";
 
 @Table({
-    tableName: 'comment'
+    tableName: 'Comment'
 })
 export class Comment extends Model<Comment> {
 

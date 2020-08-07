@@ -9,9 +9,9 @@ import {
     Ctx,
     Flow
 } from 'koa-ts-controllers';
-import {Context} from 'koa';
-import {IsNumberString, IsNotEmpty} from 'class-validator';
-import Boom from '@hapi/Boom';
+import { Context } from 'koa';
+import { IsNumberString, IsNotEmpty } from 'class-validator';
+import Boom from '@hapi/boom';
 import authorization from '../middlewares/authorization';
 
 class GetUsersQuery {
@@ -108,6 +108,6 @@ class TestController {
     async noAuth() {
         return '随便看';
     }
-    
+
 
 }

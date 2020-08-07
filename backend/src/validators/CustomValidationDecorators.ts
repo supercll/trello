@@ -6,7 +6,7 @@ import {
 
 export function IsSameValue(property: string, validationOptions?: ValidationOptions) {
 
-    return function(
+    return function (
         target: Object,
         propertyName: string
     ) {

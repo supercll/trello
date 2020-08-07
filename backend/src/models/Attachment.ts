@@ -9,7 +9,7 @@ import {
     Table,
     UpdatedAt
 } from "sequelize-typescript";
-import {User} from "./User";
+import { User } from "./User";
 
 @Table({
     tableName: 'Attachment'

@@ -2,7 +2,7 @@ import {
     IsNotEmpty,
     MaxLength, ValidateIf
 } from 'class-validator';
-import {Board as BoardModel} from "../models/Board";
+import { Board as BoardModel } from "../models/Board";
 import Boom from "@hapi/boom";
 
 export class PostAddBoardBody {

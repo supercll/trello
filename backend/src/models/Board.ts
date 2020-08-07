@@ -12,7 +12,7 @@ import {
 import {User} from "./User";
 
 @Table({
-    tableName: 'board'
+    tableName: 'Board'
 })
 export class Board extends Model<Board> {
 

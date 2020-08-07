@@ -14,15 +14,15 @@ const configs = {
     development: {
         server: {
             host: 'localhost',
-            port: 8080
+            port: 9090
         },
         database: databaseConfig.development as IDatabaseConfig,
         jwt: {
-            privateKey: 'kaikeba'
+            privateKey: 'lc'
         },
         storage: {
             dir: path.resolve(__dirname, '../attachments'),
-            prefix: '/public/attachments'
+            prefix: '/attachments'
         }
     },
     test: {
@@ -32,7 +32,7 @@ const configs = {
         },
         database: databaseConfig.test as IDatabaseConfig,
         jwt: {
-            privateKey: 'kaikeba'
+            privateKey: 'lc'
         },
         storage: {
             dir: path.resolve(__dirname, 'attachments'),
@@ -46,7 +46,7 @@ const configs = {
         },
         database: databaseConfig.production as IDatabaseConfig,
         jwt: {
-            privateKey: 'kaikeba'
+            privateKey: 'lc'
         },
         storage: {
             dir: path.resolve(__dirname, 'attachments'),

@@ -2,7 +2,7 @@ import {
     Length,
     IsNotEmpty
 } from 'class-validator';
-import {IsSameValue} from './CustomValidationDecorators';
+import { IsSameValue } from './CustomValidationDecorators';
 
 class UserBody {
     @Length(1, 50, {
@@ -16,7 +16,7 @@ class UserBody {
     password: string;
 }
 
-export class RegisterBody extends UserBody{
+export class RegisterBody extends UserBody {
 
     // 需要和password比较，必须拥有相同的值，自定义验证装饰器
     @IsSameValue('password', {
@@ -26,5 +26,5 @@ export class RegisterBody extends UserBody{
 
 }
 
-export class LoginBody extends UserBody{
+export class LoginBody extends UserBody {
 }

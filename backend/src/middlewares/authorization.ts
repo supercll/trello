@@ -1,5 +1,5 @@
 import {Context, Next} from 'koa';
-import Boom from '@hapi/Boom';
+import Boom from '@hapi/boom';
 
 export default async function authorization(
     ctx: Context,

@@ -9,10 +9,10 @@ import {
     Params,
     Body
 } from 'koa-ts-controllers';
-import {Context} from 'koa';
+import { Context } from 'koa';
 import authorization from "../middlewares/authorization";
-import {Board as BoardModel} from '../models/Board';
-import {PostAddBoardBody, PutUpdateBoardBody, getAndValidateBoard} from '../validators/Board';
+import { Board as BoardModel } from '../models/Board';
+import { PostAddBoardBody, PutUpdateBoardBody, getAndValidateBoard } from '../validators/Board';
 
 @Controller('/board')
 @Flow([authorization])
@@ -26,7 +26,7 @@ export class BoardController {
         @Ctx() ctx: Context,
         @Body() body: PostAddBoardBody
     ) {
-        let {name} = body;
+        let { name } = body;
 
         let board = new BoardModel();
 
@@ -49,8 +49,8 @@ export class BoardController {
             userId: ctx.userInfo.id
         };
 
-        let boards = await BoardModel.findAll({where});
-
+        let boards = await BoardModel.findAll({ where });
+	   console.log(22222222222222222222222222, boards);
         return boards;
     }
 

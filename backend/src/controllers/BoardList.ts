@@ -11,7 +11,7 @@ import {
     Ctx
 } from 'koa-ts-controllers';
 import authorization from "../middlewares/authorization";
-import {Context} from 'koa';
+import { Context } from 'koa';
 import {
     PostAddListBody,
     GetListsQuery,
@@ -19,8 +19,8 @@ import {
 
     getAndValidateBoardList
 } from '../validators/BoardList';
-import {getAndValidateBoard} from '../validators/Board';
-import {BoardList as BoardListModel} from "../models/BoardList";
+import { getAndValidateBoard } from '../validators/Board';
+import { BoardList as BoardListModel } from "../models/BoardList";
 
 
 @Controller('/list')
@@ -35,7 +35,7 @@ export class BoardListController {
         @Ctx() ctx: Context,
         @Body() body: PostAddListBody
     ) {
-        let {boardId, name} = body;
+        let { boardId, name } = body;
 
         await getAndValidateBoard(boardId, ctx.userInfo.id);
 
@@ -65,7 +65,7 @@ export class BoardListController {
         @Ctx() ctx: Context,
         @Query() query: GetListsQuery
     ) {
-        let {boardId} = query;
+        let { boardId } = query;
 
         await getAndValidateBoard(boardId, ctx.userInfo.id);
 
@@ -101,7 +101,7 @@ export class BoardListController {
         @Params('id') id: number,
         @Body() body: PutUpdateListBody
     ) {
-        let {boardId, name, order} = body;
+        let { boardId, name, order } = body;
 
         let boardList = await getAndValidateBoardList(id, ctx.userInfo.id);
 

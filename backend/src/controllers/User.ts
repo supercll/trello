@@ -4,10 +4,10 @@ import {
     Body,
     Ctx
 } from 'koa-ts-controllers';
-import {Context} from 'koa';
-import {RegisterBody, LoginBody} from '../validators/User';
-import {User as UserModel} from '../models/User';
-import Boom from '@hapi/Boom';
+import { Context } from 'koa';
+import { RegisterBody, LoginBody } from '../validators/User';
+import { User as UserModel } from '../models/User';
+import Boom from '@hapi/boom';
 import crypto from 'crypto';
 import jwt from 'jsonwebtoken';
 import configs from '../configs';
@@ -23,7 +23,7 @@ export class UserController {
         @Ctx() ctx: Context,
         @Body() body: RegisterBody
     ) {
-        let {name, password} = body;
+        let { name, password } = body;
 
         // 验证数据库中是否已经存在要注册的用户
         let user = await UserModel.findOne({
@@ -59,10 +59,10 @@ export class UserController {
         @Ctx() ctx: Context,
         @Body() body: LoginBody
     ) {
-        let {name, password} = body;
+        let { name, password } = body;
 
         let user = await UserModel.findOne({
-            where: {name}
+            where: { name }
         });
 
         if (!user) {
@@ -80,7 +80,7 @@ export class UserController {
             name: user.name
         };
 
-        let token = jwt.sign( userInfo, configs.jwt.privateKey );
+        let token = jwt.sign(userInfo, configs.jwt.privateKey);
         ctx.set('authorization', token);
 
         return userInfo;

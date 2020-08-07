@@ -9,9 +9,9 @@ import {
     Table,
     UpdatedAt
 } from "sequelize-typescript";
-import {User} from "./User";
-import {BoardListCard} from "./BoardListCard";
-import {Attachment} from "./Attachment";
+import { User } from "./User";
+import { BoardListCard } from "./BoardListCard";
+import { Attachment } from "./Attachment";
 
 
 @Table({
