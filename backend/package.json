@@ -1,0 +1,45 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "ts-node-dev ./src/app.ts",
+    "db:create": "sequelize db:create",
+    "db:drop": "sequelize db:drop",
+    "db:migrate": "sequelize db:migrate",
+    "db:migrate:undo:all": "sequelize db:migrate:undo:all",
+    "db:seed:all": "sequelize db:seed:all",
+    "db:seed:undo:all": "sequelize db:seed:undo:all",
+    "db:init": "npm run db:create && npm run db:migrate && npm run db:seed:all",
+    "db:redo": "npm run db:drop && npm run db:init"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/jsonwebtoken": "^8.3.9",
+    "@types/koa": "^2.11.3",
+    "@types/koa-bodyparser": "^4.3.0",
+    "@types/koa-router": "^7.4.0",
+    "@types/koa-static-cache": "^5.1.0",
+    "@types/node": "^13.9.5",
+    "sequelize-cli": "^5.5.1",
+    "ts-node-dev": "^1.0.0-pre.44",
+    "typescript": "^3.8.3"
+  },
+  "dependencies": {
+    "class-validator": "^0.12.0-rc.0",
+    "jsonwebtoken": "^8.5.1",
+    "koa": "^2.11.0",
+    "koa-body": "^4.1.1",
+    "koa-bodyparser": "^4.3.0",
+    "koa-router": "^8.0.8",
+    "koa-static-cache": "^5.1.2",
+    "koa-ts-controllers": "^2.1.0",
+    "mysql2": "^2.1.0",
+    "sequelize": "^5.21.5",
+    "sequelize-typescript": "^1.1.0"
+  }
+}
