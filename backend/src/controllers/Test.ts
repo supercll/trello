@@ -25,13 +25,13 @@ class PostUserBody {
 
 @Controller("/test")
 class TestController {
-    // @Get('/hello')
-    // async hello(a: any) {
-    //
-    //     // console.log(a.b);
-    //
-    //     return 'Hello Test!';
-    // }
+    @Get('/hello')
+    async hello(a: any) {
+    
+        // console.log(a.b);
+    
+        return 'Hello Test!';
+    }
 
     // @Get('/user/:id(\\d+)')
     // async getUser(

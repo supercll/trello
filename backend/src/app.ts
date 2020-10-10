@@ -31,6 +31,7 @@ import KoaStaticCache from "koa-static-cache";
     });
 
     app.use(async (ctx: Context, next: Next) => {
+        ctx.set("Access-Control-Allow-Origin", "*");
         let token = ctx.headers["authorization"];
         if (token) {
             ctx.userInfo = jwt.verify(token, configs.jwt.privateKey) as UserInfo;
@@ -61,7 +62,6 @@ import KoaStaticCache from "koa-static-cache";
                     body.errorDetails = err.data;
                 }
             }
-
             ctx.status = status;
             ctx.body = body;
         },
