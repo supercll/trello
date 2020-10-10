@@ -10,8 +10,8 @@ import {
     Unique,
     PrimaryKey,
     CreatedAt,
-    UpdatedAt
-} from 'sequelize-typescript';
+    UpdatedAt,
+} from "sequelize-typescript";
 import crypto from "crypto";
 
 // @DefaultScope(() => ({
@@ -23,10 +23,9 @@ import crypto from "crypto";
 //     }
 // }))
 @Table({
-    tableName: 'User',
+    tableName: "User",
 })
 export class User extends Model<User> {
-
     @PrimaryKey
     @AutoIncrement
     @Column
@@ -35,7 +34,7 @@ export class User extends Model<User> {
     @AllowNull(false)
     @Unique(true)
     @Column({
-        type: DataType.STRING(50)
+        type: DataType.STRING(50),
     })
     name: string;
 
@@ -48,9 +47,9 @@ export class User extends Model<User> {
 
     @Column
     set password(val: string) {
-        let md5 = crypto.createHash('md5');
-        let newPassword = md5.update(val).digest('hex');
-        this.setDataValue('password', newPassword);
+        let md5 = crypto.createHash("md5");
+        let newPassword = md5.update(val).digest("hex");
+        this.setDataValue("password", newPassword);
     }
 
     @CreatedAt

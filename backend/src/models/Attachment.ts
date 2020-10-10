@@ -1,5 +1,6 @@
 import {
-    AutoIncrement, BelongsTo,
+    AutoIncrement,
+    BelongsTo,
     Column,
     CreatedAt,
     DataType,
@@ -7,15 +8,14 @@ import {
     Model,
     PrimaryKey,
     Table,
-    UpdatedAt
+    UpdatedAt,
 } from "sequelize-typescript";
 import { User } from "./User";
 
 @Table({
-    tableName: 'Attachment'
+    tableName: "Attachment",
 })
 export class Attachment extends Model<Attachment> {
-
     @PrimaryKey
     @AutoIncrement
     @Column
@@ -24,32 +24,32 @@ export class Attachment extends Model<Attachment> {
     @ForeignKey(() => User)
     @Column({
         type: DataType.INTEGER.UNSIGNED,
-        allowNull: false
+        allowNull: false,
     })
     userId: number;
 
     @Column({
         type: DataType.STRING(255),
-        allowNull: false
+        allowNull: false,
     })
     originName: string;
 
     @Column({
         type: DataType.STRING(255),
-        allowNull: false
+        allowNull: false,
     })
     name: string;
 
     @Column({
         type: DataType.STRING(50),
-        allowNull: false
+        allowNull: false,
     })
     type: string;
 
     @Column({
         type: DataType.INTEGER.UNSIGNED,
         allowNull: false,
-        defaultValue: 0
+        defaultValue: 0,
     })
     size: number;
 
@@ -58,5 +58,4 @@ export class Attachment extends Model<Attachment> {
 
     @UpdatedAt
     updatedAt: Date;
-
 }

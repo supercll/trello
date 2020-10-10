@@ -22,17 +22,17 @@ export default {
     props: {
         pages: {
             type: Number,
-            default: 1
+            default: 1,
         },
         page: {
             type: Number,
-            default: 1
-        }
+            default: 1,
+        },
     },
 
     data() {
         return {
-            showPagesNumber: 5
+            showPagesNumber: 5,
         };
     },
 
@@ -64,7 +64,7 @@ export default {
 
         lastShowPage() {
             return this.showPages[this.showPages.length - 1];
-        }
+        },
     },
 
     methods: {
@@ -75,7 +75,7 @@ export default {
             if (n !== this.page) {
                 this.$emit("changePage", n);
             }
-        }
-    }
+        },
+    },
 };
 </script>

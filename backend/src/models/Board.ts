@@ -7,15 +7,14 @@ import {
     Model,
     PrimaryKey,
     Table,
-    UpdatedAt
+    UpdatedAt,
 } from "sequelize-typescript";
-import {User} from "./User";
+import { User } from "./User";
 
 @Table({
-    tableName: 'Board'
+    tableName: "Board",
 })
 export class Board extends Model<Board> {
-
     @PrimaryKey
     @AutoIncrement
     @Column
@@ -24,13 +23,13 @@ export class Board extends Model<Board> {
     @ForeignKey(() => User)
     @Column({
         type: DataType.INTEGER.UNSIGNED,
-        allowNull: false
+        allowNull: false,
     })
     userId: number;
 
     @Column({
         type: DataType.STRING(255),
-        allowNull: false
+        allowNull: false,
     })
     name: string;
 

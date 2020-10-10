@@ -28,7 +28,7 @@ export default {
             closed: false,
             duration: 1000,
             timer: null,
-            onClose: null
+            onClose: null,
         };
     },
 
@@ -46,7 +46,7 @@ export default {
             if (typeof this.onClose === "function") {
                 this.onClose();
             }
-        }
-    }
+        },
+    },
 };
 </script>

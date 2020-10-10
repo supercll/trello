@@ -40,30 +40,30 @@ export default {
     name: "TComment",
 
     filters: {
-        dateTime
+        dateTime,
     },
 
     components: {
-        TPagination
+        TPagination,
     },
 
     props: {
         cardId: {
             type: Number,
-            required: true
-        }
+            required: true,
+        },
     },
 
     data() {
         return {
-            comments: {}
+            comments: {},
         };
     },
 
     computed: {
         user() {
             return this.$store.state.user.info;
-        }
+        },
     },
 
     async created() {
@@ -75,7 +75,7 @@ export default {
             try {
                 let rs = await this.$store.dispatch("comment/getComments", {
                     boardListCardId: this.cardId,
-                    page
+                    page,
                 });
 
                 this.comments = rs.data;
@@ -89,7 +89,7 @@ export default {
                 if (value.trim() !== "") {
                     let rs = await this.$store.dispatch("comment/postComment", {
                         boardListCardId: this.cardId,
-                        content: value
+                        content: value,
                     });
 
                     this.$message.success("评论成功");
@@ -103,7 +103,7 @@ export default {
 
         async changePage(page) {
             await this.getComments(page);
-        }
-    }
+        },
+    },
 };
 </script>

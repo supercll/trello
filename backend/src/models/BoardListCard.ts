@@ -3,22 +3,22 @@ import {
     Column,
     CreatedAt,
     DataType,
-    ForeignKey, HasMany,
+    ForeignKey,
+    HasMany,
     Model,
     PrimaryKey,
     Table,
-    UpdatedAt
+    UpdatedAt,
 } from "sequelize-typescript";
-import {BoardList} from "./BoardList";
-import {User} from "./User";
-import {CardAttachment} from "./CardAttachment";
-import {Comment} from "./Comment";
+import { BoardList } from "./BoardList";
+import { User } from "./User";
+import { CardAttachment } from "./CardAttachment";
+import { Comment } from "./Comment";
 
 @Table({
-    tableName: 'BoardListCard'
+    tableName: "BoardListCard",
 })
 export class BoardListCard extends Model<BoardListCard> {
-
     @PrimaryKey
     @AutoIncrement
     @Column
@@ -27,34 +27,34 @@ export class BoardListCard extends Model<BoardListCard> {
     @ForeignKey(() => User)
     @Column({
         type: DataType.INTEGER.UNSIGNED,
-        allowNull: false
+        allowNull: false,
     })
     userId: number;
 
     @ForeignKey(() => BoardList)
     @Column({
         type: DataType.INTEGER.UNSIGNED,
-        allowNull: false
+        allowNull: false,
     })
     boardListId: number;
 
     @Column({
         type: DataType.STRING(255),
-        allowNull: false
+        allowNull: false,
     })
     name: string;
 
     @Column({
         type: DataType.STRING(2000),
         allowNull: false,
-        defaultValue: ''
+        defaultValue: "",
     })
     description: string;
 
     @Column({
         type: DataType.FLOAT,
         allowNull: false,
-        defaultValue: 0
+        defaultValue: 0,
     })
     order: number;
 
@@ -69,5 +69,4 @@ export class BoardListCard extends Model<BoardListCard> {
 
     @UpdatedAt
     updatedAt: Date;
-
 }

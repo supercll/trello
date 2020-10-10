@@ -1,7 +1,7 @@
-import moment from 'moment';
+import moment from "moment";
 
-moment.updateLocale('zh-cn', {
-    meridiem : function (hour, minute, isLowercase) {
+moment.updateLocale("zh-cn", {
+    meridiem: function(hour, minute, isLowercase) {
         if (hour < 9) {
             return "早上";
         } else if (hour < 11 && minute < 30) {
@@ -13,9 +13,9 @@ moment.updateLocale('zh-cn', {
         } else {
             return "晚上";
         }
-    }
+    },
 });
 
 export default val => {
-    return moment(val).format('LLL');
-}
+    return moment(val).format("LLL");
+};

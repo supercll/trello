@@ -21,14 +21,14 @@ export default {
             default() {
                 // {name: '', command: 'logout', separator: true}
                 return [];
-            }
-        }
+            },
+        },
     },
 
     methods: {
         command(command) {
             this.$emit("command", command);
-        }
-    }
+        },
+    },
 };
 </script>

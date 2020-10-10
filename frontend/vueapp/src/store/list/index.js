@@ -1,17 +1,16 @@
-import * as api from '@/api';
+import * as api from "@/api";
 
 export default {
-
     namespaced: true,
 
     state: {
-        lists: []
+        lists: [],
     },
 
     getters: {
         getLists: ({ lists }) => boardId => lists.filter(list => list.boardId == boardId),
 
-        getList: ({ lists }) => listId => lists.find(list => list.id == listId)
+        getList: ({ lists }) => listId => lists.find(list => list.id == listId),
     },
 
     mutations: {
@@ -35,16 +34,15 @@ export default {
             state.lists = state.lists.filter(list => {
                 return list.id !== data.id;
             });
-        }
+        },
     },
 
     actions: {
-
         getLists: async ({ commit }, boardId) => {
             try {
                 let rs = await api.getLists(boardId);
 
-                commit('updateLists', rs.data);
+                commit("updateLists", rs.data);
 
                 return rs;
             } catch (e) {
@@ -56,7 +54,7 @@ export default {
             try {
                 let rs = await api.postList(data);
 
-                commit('addList', rs.data);
+                commit("addList", rs.data);
 
                 return rs;
             } catch (e) {
@@ -68,7 +66,7 @@ export default {
             try {
                 let rs = await api.putList(data);
 
-                commit('updateList', data);
+                commit("updateList", data);
 
                 return rs;
             } catch (e) {
@@ -83,8 +81,6 @@ export default {
             } catch (e) {
                 throw e;
             }
-        }
-
-    }
-
+        },
+    },
 };

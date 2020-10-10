@@ -36,19 +36,19 @@ export default {
 
     components: {
         TPopup,
-        TPopupMenu
+        TPopupMenu,
     },
 
     data() {
         return {
-            menuItems: [{ name: "退出", command: "logout" }]
+            menuItems: [{ name: "退出", command: "logout" }],
         };
     },
 
     computed: {
         ...mapState("user", {
-            user: state => state.info
-        })
+            user: (state) => state.info,
+        }),
     },
 
     methods: {
@@ -67,7 +67,7 @@ export default {
 
             this.$router.push({ name: "Login" });
             // this.$refs.tPopup.close();
-        }
-    }
+        },
+    },
 };
 </script>

@@ -1,46 +1,30 @@
-import {
-    Controller,
-    Get,
-    Params,
-    Query,
-    Body,
-    Post,
-    Header,
-    Ctx,
-    Flow
-} from 'koa-ts-controllers';
-import { Context } from 'koa';
-import { IsNumberString, IsNotEmpty } from 'class-validator';
-import Boom from '@hapi/boom';
-import authorization from '../middlewares/authorization';
+import { Controller, Get, Params, Query, Body, Post, Header, Ctx, Flow } from "koa-ts-controllers";
+import { Context } from "koa";
+import { IsNumberString, IsNotEmpty } from "class-validator";
+import Boom from "@hapi/boom";
+import authorization from "../middlewares/authorization";
 
 class GetUsersQuery {
-
     @IsNumberString({
-        message: 'page必须是数字'
+        message: "page必须是数字",
     })
     page: number;
-
 }
 
 class PostUserBody {
-
     @IsNotEmpty({
-        message: '用户名不能为空'
+        message: "用户名不能为空",
     })
     name: string;
 
     @IsNotEmpty({
-        message: '密码不能为空'
+        message: "密码不能为空",
     })
     password: string;
-
 }
 
-@Controller('/test')
-
+@Controller("/test")
 class TestController {
-
     // @Get('/hello')
     // async hello(a: any) {
     //
@@ -63,12 +47,8 @@ class TestController {
     //     return '当前params中的用户id是：' + q.id;
     // }
 
-    @Post('/user')
-    async postUser(
-        @Ctx() ctx: Context,
-        @Body() body: PostUserBody,
-        @Header() h: any
-    ) {
+    @Post("/user")
+    async postUser(@Ctx() ctx: Context, @Body() body: PostUserBody, @Header() h: any) {
         // console.log(body);
         // console.log('header', h);
         // return `当前提交的数据是：${JSON.stringify(body)}`;
@@ -77,37 +57,28 @@ class TestController {
         return {
             id: 1,
             name: body.name,
-            createAt: new Date()
-        }
-
+            createAt: new Date(),
+        };
     }
 
-
-    @Get('/users')
-    async getUsers(
-        @Query() q: GetUsersQuery
-    ) {
-
+    @Get("/users")
+    async getUsers(@Query() q: GetUsersQuery) {
         // 业务逻辑出现了一些错误，比如用户不存在，用户名已经被注册了
         // if (true) { // 用户名已经被注册了
         //     throw Boom.notFound('注册失败', '用户已经被注册了');
         // }
 
-        return '传过来的query：' + JSON.stringify(q);
+        return "传过来的query：" + JSON.stringify(q);
     }
 
-    @Get('/auth')
+    @Get("/auth")
     @Flow([authorization])
-    async auth(
-        @Ctx() ctx: Context
-    ) {
-        return '不登录看不到';
+    async auth(@Ctx() ctx: Context) {
+        return "不登录看不到";
     }
 
-    @Get('/noauth')
+    @Get("/noauth")
     async noAuth() {
-        return '随便看';
+        return "随便看";
     }
-
-
 }

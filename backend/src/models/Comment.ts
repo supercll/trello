@@ -1,5 +1,6 @@
 import {
-    AutoIncrement, BelongsTo,
+    AutoIncrement,
+    BelongsTo,
     Column,
     CreatedAt,
     DataType,
@@ -7,16 +8,15 @@ import {
     Model,
     PrimaryKey,
     Table,
-    UpdatedAt
+    UpdatedAt,
 } from "sequelize-typescript";
-import {User} from "./User";
-import {BoardListCard} from "./BoardListCard";
+import { User } from "./User";
+import { BoardListCard } from "./BoardListCard";
 
 @Table({
-    tableName: 'Comment'
+    tableName: "Comment",
 })
 export class Comment extends Model<Comment> {
-
     @PrimaryKey
     @AutoIncrement
     @Column
@@ -25,7 +25,7 @@ export class Comment extends Model<Comment> {
     @ForeignKey(() => User)
     @Column({
         type: DataType.INTEGER.UNSIGNED,
-        allowNull: false
+        allowNull: false,
     })
     userId: number;
 
@@ -35,13 +35,13 @@ export class Comment extends Model<Comment> {
     @ForeignKey(() => BoardListCard)
     @Column({
         type: DataType.INTEGER.UNSIGNED,
-        allowNull: false
+        allowNull: false,
     })
     boardListCardId: number;
 
     @Column({
         type: DataType.STRING(2000),
-        allowNull: false
+        allowNull: false,
     })
     content: string;
 
@@ -50,5 +50,4 @@ export class Comment extends Model<Comment> {
 
     @UpdatedAt
     updatedAt: Date;
-
 }

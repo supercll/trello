@@ -1,5 +1,6 @@
 import {
-    AutoIncrement, BelongsTo,
+    AutoIncrement,
+    BelongsTo,
     Column,
     CreatedAt,
     DataType,
@@ -7,18 +8,16 @@ import {
     Model,
     PrimaryKey,
     Table,
-    UpdatedAt
+    UpdatedAt,
 } from "sequelize-typescript";
 import { User } from "./User";
 import { BoardListCard } from "./BoardListCard";
 import { Attachment } from "./Attachment";
 
-
 @Table({
-    tableName: 'CardAttachment'
+    tableName: "CardAttachment",
 })
 export class CardAttachment extends Model<CardAttachment> {
-
     @PrimaryKey
     @AutoIncrement
     @Column
@@ -27,28 +26,28 @@ export class CardAttachment extends Model<CardAttachment> {
     @ForeignKey(() => User)
     @Column({
         type: DataType.INTEGER.UNSIGNED,
-        allowNull: false
+        allowNull: false,
     })
     userId: number;
 
     @ForeignKey(() => BoardListCard)
     @Column({
         type: DataType.INTEGER.UNSIGNED,
-        allowNull: false
+        allowNull: false,
     })
     boardListCardId: number;
 
     @ForeignKey(() => Attachment)
     @Column({
         type: DataType.INTEGER.UNSIGNED,
-        allowNull: false
+        allowNull: false,
     })
     attachmentId: number;
 
     @Column({
         type: DataType.BOOLEAN,
         allowNull: false,
-        defaultValue: 0
+        defaultValue: 0,
     })
     isCover: boolean;
 
@@ -60,5 +59,4 @@ export class CardAttachment extends Model<CardAttachment> {
 
     @UpdatedAt
     updatedAt: Date;
-
 }

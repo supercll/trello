@@ -4,7 +4,7 @@
         "dialect": "mysql",
         "username": "root",
         "password": "103358",
-        "database": "trello_app_development",
+        "database": "trello_development",
         "timezone": "+08:00"
     },
     "test": {
@@ -12,7 +12,7 @@
         "dialect": "mysql",
         "username": "root",
         "password": "103358",
-        "database": "trello_app_test",
+        "database": "trello_test",
         "timezone": "+08:00"
     },
     "production": {
@@ -20,7 +20,7 @@
         "dialect": "mysql",
         "username": "root",
         "password": "103358",
-        "database": "trello_app_production",
+        "database": "trello_production",
         "timezone": "+08:00"
     }
 }

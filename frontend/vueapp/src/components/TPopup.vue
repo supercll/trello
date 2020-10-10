@@ -26,13 +26,13 @@ export default {
     props: {
         title: {
             type: String,
-            default: "菜单"
-        }
+            default: "菜单",
+        },
     },
 
     data() {
         return {
-            isShow: false
+            isShow: false,
         };
     },
 
@@ -73,7 +73,7 @@ export default {
                 this.$emit("close");
                 window.removeEventListener("click", this.close);
             }
-        }
-    }
+        },
+    },
 };
 </script>
