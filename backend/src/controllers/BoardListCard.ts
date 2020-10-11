@@ -29,6 +29,7 @@ import configs from "../configs";
 import Boom from "@hapi/boom";
 import path from "path";
 import fs from "fs";
+import { userInfo } from "os";
 
 @Controller("/card")
 @Flow([authorization])
@@ -60,9 +61,7 @@ export class BoardListCardController {
     @Get("")
     public async getCards(@Ctx() ctx: Context, @Query() query: GetCardsQuery) {
         let { boardListId } = query;
-
         await getAndValidateBoardList(boardListId, ctx.userInfo.id);
-
         let boardListCards = await BoardListCardModel.findAll({
             where: {
                 boardListId,
@@ -83,7 +82,6 @@ export class BoardListCardController {
                 },
             ],
         });
-
         let boardListCardsData = boardListCards.map((card: BoardListCardModel) => {
             // 处理附件的路径和封面
             let coverPath = "";
@@ -112,6 +110,7 @@ export class BoardListCardController {
                 commentCount: card.comments.length,
             };
         });
+        console.log("卡片信息----------------------", boardListCardsData);
 
         return boardListCardsData;
     }
@@ -122,7 +121,6 @@ export class BoardListCardController {
     @Get("/:id(\\d+)")
     public async getCard(@Ctx() ctx: Context, @Params("id") id: number) {
         let boardListCard = await getAndValidateBoardListCard(id, ctx.userInfo.id);
-
         return boardListCard;
     }
 

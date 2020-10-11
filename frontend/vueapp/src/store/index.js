@@ -12,7 +12,7 @@ import comment from "./comment";
 export default new Vuex.Store({
     state: {
         server: {
-            staticPath: process.env.VUE_APP_SERVER_STATIC_PATH,
+            staticPath: "http://localhost:9090",
         },
     },
     mutations: {},
