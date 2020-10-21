@@ -12,7 +12,7 @@ import comment from "./comment";
 export default new Vuex.Store({
     state: {
         server: {
-            staticPath: "http://localhost:9090",
+            staticPath: "http://trellodata.lhikari.com",
         },
     },
     mutations: {},
