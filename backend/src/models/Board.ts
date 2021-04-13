@@ -1,41 +1,47 @@
 import {
-    AutoIncrement,
-    Column,
-    CreatedAt,
-    DataType,
-    ForeignKey,
-    Model,
-    PrimaryKey,
-    Table,
-    UpdatedAt,
-} from "sequelize-typescript";
-import { User } from "./User";
+  AutoIncrement,
+  Column,
+  CreatedAt,
+  DataType,
+  ForeignKey,
+  Model,
+  PrimaryKey,
+  Table,
+  UpdatedAt
+} from 'sequelize-typescript';
+import { User } from './User';
 
 @Table({
-    tableName: "Board",
+  tableName: 'Board'
 })
 export class Board extends Model<Board> {
-    @PrimaryKey
-    @AutoIncrement
-    @Column
-    id: number;
+  @PrimaryKey
+  @AutoIncrement
+  @Column
+  id: number;
 
-    @ForeignKey(() => User)
-    @Column({
-        type: DataType.INTEGER.UNSIGNED,
-        allowNull: false,
-    })
-    userId: number;
+  @ForeignKey(() => User)
+  @Column({
+    type: DataType.INTEGER.UNSIGNED,
+    allowNull: false
+  })
+  userId: number;
 
-    @Column({
-        type: DataType.STRING(255),
-        allowNull: false,
-    })
-    name: string;
+  @Column({
+    type: DataType.STRING(255),
+    allowNull: false
+  })
+  userName: String;
 
-    @CreatedAt
-    createdAt: Date;
+  @Column({
+    type: DataType.STRING(255),
+    allowNull: false
+  })
+  name: string;
 
-    @UpdatedAt
-    updatedAt: Date;
+  @CreatedAt
+  createdAt: Date;
+
+  @UpdatedAt
+  updatedAt: Date;
 }

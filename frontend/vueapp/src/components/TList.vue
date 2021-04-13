@@ -210,12 +210,12 @@ export default {
       this.$refs.newListName.value = '';
     },
 
-    addNewCard() {
+    async addNewCard() {
       let { value } = this.$refs.newListName;
 
       if (value.trim() !== '') {
         try {
-          this.$store.dispatch('card/postCard', {
+          await this.$store.dispatch('card/postCard', {
             boardListId: this.data.id,
             name: value
           });

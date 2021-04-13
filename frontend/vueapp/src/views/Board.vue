@@ -102,14 +102,14 @@ export default {
             this.listAdding = false;
         },
         // 提交添加新的列表
-        addNewList() {
+        async addNewList() {
             let name = this.$refs.newListName.value;
 
             if (name.trim() === "") {
                 this.$refs.newListName.focus();
             } else {
                 try {
-                    this.$store.dispatch("list/postList", {
+                    await this.$store.dispatch("list/postList", {
                         boardId: this.board.id,
                         name,
                     });

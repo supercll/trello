@@ -52,8 +52,7 @@ export async function getAndValidateBoardList(id: number, userId: number): Promi
     }
 
     if (board.userId !== userId) {
-        throw Boom.forbidden("禁止访问该列表");
+        throw Boom.forbidden("没有权限操作该列表");
     }
-
     return board;
 }

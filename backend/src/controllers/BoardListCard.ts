@@ -61,7 +61,6 @@ export class BoardListCardController {
     @Get("")
     public async getCards(@Ctx() ctx: Context, @Query() query: GetCardsQuery) {
         let { boardListId } = query;
-        await getAndValidateBoardList(boardListId, ctx.userInfo.id);
         let boardListCards = await BoardListCardModel.findAll({
             where: {
                 boardListId,
@@ -120,7 +119,8 @@ export class BoardListCardController {
      */
     @Get("/:id(\\d+)")
     public async getCard(@Ctx() ctx: Context, @Params("id") id: number) {
-        let boardListCard = await getAndValidateBoardListCard(id, ctx.userInfo.id);
+        let boardListCard = await BoardListCardModel.findByPk(id);
+
         return boardListCard;
     }
 

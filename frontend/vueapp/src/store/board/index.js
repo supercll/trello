@@ -35,6 +35,18 @@ export default {
     },
 
     actions: {
+        
+        getPublicBoards: async ({ commit }) => {
+            try {
+                let rs = await api.getPublicBoards();
+
+                commit("updateBoards", rs.data);
+
+                return rs;
+            } catch (e) {
+                throw e;
+            }
+        },
         getBoards: async ({ commit }) => {
             try {
                 let rs = await api.getBoards();

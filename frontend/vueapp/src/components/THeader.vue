@@ -6,7 +6,7 @@
             </router-link>
             <router-link :to="{name: 'Home'}" class="btn btn-icon">
                 <i class="icon icon-board"></i>
-                <span class="txt">看板</span>
+                <span class="txt">公共看板</span>
             </router-link>
         </div>
         <router-link :to="{name: 'Home'}" class="logo"></router-link>

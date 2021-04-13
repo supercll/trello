@@ -28,7 +28,7 @@ export async function getAndValidateBoard(id: number, userId: number): Promise<B
     }
 
     if (board.userId !== userId) {
-        throw Boom.forbidden("禁止访问该面板");
+        throw Boom.forbidden("没有权限操作该面板");
     }
 
     return board;

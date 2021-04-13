@@ -12,6 +12,10 @@ module.exports = {
                     type: Sequelize.INTEGER.UNSIGNED,
                     allowNull: false,
                 },
+                username: {
+                    type: Sequelize.STRING(255),
+                    allowNull: false,
+                },
                 name: {
                     type: Sequelize.STRING(255),
                     allowNull: false,

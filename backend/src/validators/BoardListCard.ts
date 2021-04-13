@@ -94,7 +94,7 @@ export async function getAndValidateCardAttachment(
     }
 
     if (board.userId !== userId) {
-        throw Boom.forbidden("禁止访问该附件");
+        throw Boom.forbidden("没有权限操作该附件");
     }
 
     return board;

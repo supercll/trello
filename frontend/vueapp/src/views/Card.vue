@@ -145,12 +145,12 @@ export default {
     },
 
     methods: {
-        editCardName(e) {
+        async editCardName(e) {
             let { value, innerHTML } = e.target;
 
             if (value !== innerHTML) {
                 try {
-                    this.$store.dispatch("card/editCard", {
+                    await this.$store.dispatch("card/editCard", {
                         id: this.card.id,
                         name: value,
                     });
@@ -159,12 +159,12 @@ export default {
                 } catch (e) {}
             }
         },
-        editCardDescription(e) {
+        async editCardDescription(e) {
             let { value, innerHTML } = e.target;
 
             if (value !== innerHTML) {
                 try {
-                    this.$store.dispatch("card/editCard", {
+                    await this.$store.dispatch("card/editCard", {
                         id: this.card.id,
                         description: value,
                     });
@@ -175,11 +175,11 @@ export default {
         },
 
         // 上传附件
-        uploadAttachment() {
+        async uploadAttachment() {
             let file = this.$refs.attachment.files[0];
 
             try {
-                this.$store.dispatch("card/uploadAttachment", {
+                await this.$store.dispatch("card/uploadAttachment", {
                     boardListCardId: this.card.id,
                     file,
                 });
@@ -189,9 +189,9 @@ export default {
             } catch (e) {}
         },
 
-        removeAttachment(id) {
+        async removeAttachment(id) {
             try {
-                this.$store.dispatch("card/removeAttachment", {
+                await this.$store.dispatch("card/removeAttachment", {
                     cardId: this.card.id,
                     id,
                 });
@@ -200,9 +200,9 @@ export default {
             } catch (e) {}
         },
 
-        setCover(id) {
+        async setCover(id) {
             try {
-                this.$store.dispatch("card/setCover", {
+                await this.$store.dispatch("card/setCover", {
                     cardId: this.card.id,
                     id,
                 });
@@ -211,9 +211,9 @@ export default {
             } catch (e) {}
         },
 
-        removeCover(id) {
+        async removeCover(id) {
             try {
-                this.$store.dispatch("card/removeCover", {
+                await this.$store.dispatch("card/removeCover", {
                     cardId: this.card.id,
                     id,
                 });
