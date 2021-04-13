@@ -26,7 +26,7 @@ export default {
             center: true,
             offset: 20,
             closed: false,
-            duration: 1000,
+            duration: 1500,
             timer: null,
             onClose: null,
         };

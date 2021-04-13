@@ -17,7 +17,9 @@
           :class="{ myBorad: userName == board.userName }"
           :to="{ name: 'Board', params: { id: board.id } }"
         >
-          <TListMenu class="bord-menu" :id="board.id" @removeEvent="removeBorad" />
+          <TListMenu class="bord-menu">
+            <li class="list-button list-remove" @click.prevent="removeBorad">删除</li>
+          </TListMenu>
           <span v-if="userName == board.userName" class="belongTo">自己的看板</span>
           <span v-else class="belongTo">
             <strong>{{ board.userName }}</strong>

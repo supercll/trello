@@ -25,11 +25,13 @@
                         <li class="list-button list-remove" @click="removeList">删除此列表</li>
                     </ul>
                 </div> -->
-        <TListMenu class="Tlist-menu" @removeEvent="removeList" />
+        <TListMenu class="Tlist-menu">
+          <li class="list-button list-remove" @click.prevent="removeList">删除此列表</li>
+        </TListMenu>
       </div>
 
       <div class="list-cards">
-        <t-card v-for="card of cards" :data="card" :key="card.id"></t-card>
+        <t-card v-for="card of undoneCards" :data="card" :key="card.id"></t-card>
 
         <div class="list-card-add-form">
           <textarea
@@ -48,6 +50,20 @@
         <div class="list-add-confirm">
           <button class="btn btn-success" @click="addNewCard">添加卡片</button>
           <span class="icon icon-close" @click="hideListCardAddForm"></span>
+        </div>
+      </div>
+
+      <div class=" list-done" v-if="doneCards.length !== 0">
+        <div class="list-header">
+          <textarea class="form-field-input" readonly>已完成任务</textarea>
+
+          <TListMenu class="Tlist-menu">
+            <li @click.prevent="">删除已完成</li>
+          </TListMenu>
+        </div>
+
+        <div class="list-cards">
+          <t-card v-for="card of doneCards" :data="card" :key="card.id"></t-card>
         </div>
       </div>
     </div>
@@ -90,6 +106,12 @@ export default {
   computed: {
     cards() {
       return this.$store.getters['card/getCards'](this.data.id);
+    },
+    undoneCards() {
+      return this.$store.getters['card/getUndoneCards'](this.data.id);
+    },
+    doneCards() {
+      return this.$store.getters['card/getDoneCards'](this.data.id);
     }
   },
 
@@ -257,7 +279,7 @@ export default {
     top: 0;
     width: 100%;
     height: 0;
-    background-color: rgba(0, 0, 0, .12);
+    background-color: rgba(0, 0, 0, 0.12);
     border-radius: 3px;
   }
 }
@@ -275,5 +297,12 @@ export default {
   position: relative;
   padding: 10px 36px 10px 8px;
   min-height: 20px;
+}
+
+.list-done {
+  margin-top: 10px;
+  textarea {
+    color: rgb(59, 170, 59);
+  }
 }
 </style>

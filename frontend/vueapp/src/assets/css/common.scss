@@ -3,44 +3,107 @@ $color_2: #000;
 $color_3: #fff;
 $color_4: hsl(0, 0%, 55%);
 $color_5: #909399;
-$color_6: #67C23A;
-$color_7: #E6A23C;
-$color_8: #F56C6C;
-$color_9: #C0C4CC;
-$color_10: #5E6C84;
+$color_6: #67c23a;
+$color_7: #e6a23c;
+$color_8: #f56c6c;
+$color_9: #c0c4cc;
+$color_10: #5e6c84;
 $color_11: #0079bf;
 $color_12: white;
 $color_13: #5e6c84;
 $color_14: #6b778c;
 $color_15: #42526e;
 $font_family_1: trellicons;
-$background_color_1: #FAFBFC;
-$background_color_2: #E2E4E6;
-$background_color_3: hsla(0, 0%, 100%, .3);
-$background_color_4: hsla(0, 0%, 100%, .2);
+$background_color_1: #fafbfc;
+$background_color_2: #e2e4e6;
+$background_color_3: hsla(0, 0%, 100%, 0.3);
+$background_color_4: hsla(0, 0%, 100%, 0.2);
 $background_color_5: #61bd4f;
-$background_color_6: rgba(9, 30, 66, .08);
+$background_color_6: rgba(9, 30, 66, 0.08);
 $background_color_7: #edf2fc;
 $background_color_8: #f0f9eb;
 $background_color_9: #fdf6ec;
 $background_color_10: #fef0f0;
-$background_color_11: #F9FAFC;
-$background_color_12: #FFFFFF;
+$background_color_11: #f9fafc;
+$background_color_12: #ffffff;
 $background_color_13: black;
 $background_color_14: rgb(197, 0, 0);
 $background_color_15: rgb(0, 121, 191);
-$background_color_16: rgba(9, 30, 66, .04);
+$background_color_16: rgba(9, 30, 66, 0.04);
 $background_color_17: #ebecf0;
 $background_color_18: #fff;
 $background_color_19: #f4f5f7;
-$background_color_20: hsla(0, 0%, 100%, .24);
-$background_color_21: hsla(0, 0%, 100%, .32);
-$background_color_22: rgba(0, 0, 0, .12);
-$background_color_23: rgba(0, 0, 0, .64);
+$background_color_20: hsla(0, 0%, 100%, 0.24);
+$background_color_21: hsla(0, 0%, 100%, 0.32);
+$background_color_22: rgba(0, 0, 0, 0.12);
+$background_color_23: rgba(0, 0, 0, 0.64);
 $background_color_24: rgba(0, 121, 191, 1);
 $bili_blue: #00b3ef;
-$border_color_1: #EBEEF5;
+$border_color_1: #ebeef5;
 $border_color_2: #e1f3d8;
 $border_color_3: #faecd8;
 $border_color_4: #fde2e2;
+
+
+html {
+  height: 100%;
+  color: $color_1;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 400;
+  margin: 0;
+  padding: 0;
+}
+body {
+  height: 100%;
+  color: $color_1;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 400;
+  margin: 0;
+  padding: 0;
+}
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+h1 {
+  margin: 0;
+  padding: 0;
+}
+h2 {
+  margin: 0;
+  padding: 0;
+}
+h3 {
+  margin: 0;
+  padding: 0;
+}
+h4 {
+  margin: 0;
+  padding: 0;
+}
+h5 {
+  margin: 0;
+  padding: 0;
+}
+h6 {
+  margin: 0;
+  padding: 0;
+}
+p {
+  margin: 0;
+  padding: 0;
+}
+u {
+  cursor: pointer;
+  &:hover {
+    color: $color_2;
+  }
+}
+
+input {
+  margin: 0;
+}
 

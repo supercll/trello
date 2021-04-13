@@ -148,7 +148,8 @@ export const putCard = data => {
       boardListId: data.boardListId,
       name: data.name,
       description: data.description,
-      order: data.order
+      order: data.order,
+      status: data.status
     }
   });
 };
