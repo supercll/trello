@@ -4,7 +4,7 @@ import router from './router'
 import store from './store'
 import TMessage from '@/components/TMessage/TMessage.js';
 
-import '@/assets/css/css.css'
+import '@/assets/css/css.scss'
 
 Vue.config.productionTip = false
 
