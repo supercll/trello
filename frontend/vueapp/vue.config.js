@@ -1,5 +1,4 @@
-const loader = require('sass-loader');
-
+const path = require('path');
 module.exports = {
   productionSourceMap: process.env.NODE_ENV === 'development',
   configureWebpack: config => {
@@ -8,6 +7,12 @@ module.exports = {
       use: [
         {
           loader: 'sass-loader'
+        },
+        {
+          loader: 'sass-resources-loader',
+          options: {
+            resources: path.resolve(__dirname, './src/assets/css/common.scss')
+          }
         }
       ]
     });
