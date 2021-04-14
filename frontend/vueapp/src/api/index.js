@@ -139,6 +139,17 @@ export const postCard = data => {
     data
   });
 };
+
+// 删除卡片列表
+export const removeCards = idList => {
+  return axios({
+    method: 'delete',
+    url: '/card/idList',
+    params: {
+      idList: JSON.stringify(idList)
+    }
+  });
+};
 // 编辑一个指定的卡片
 export const putCard = data => {
   return axios({

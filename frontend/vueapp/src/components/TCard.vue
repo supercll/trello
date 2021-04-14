@@ -16,11 +16,11 @@
       </div>
       <div class="badge">
         <span class="icon icon-comment"></span>
-        <span class="text">{{ data.commentCount }}</span>
+        <span class="text">{{ data.commentCount ? data.commentCount : 0 }}</span>
       </div>
       <div class="badge">
         <span class="icon icon-attachment"></span>
-        <span class="text">{{ data.attachments.length }}</span>
+        <span class="text">{{ data.attachments ? data.attachments.length : 0 }}</span>
       </div>
       <TInput class="cardInput" :id="data.id" :status="data.status" @clickEvent="toggleStatus" />
     </div>

@@ -18,7 +18,8 @@ import {
   PutUpdateCardBody,
   PutSetCoverBody,
   getAndValidateBoardListCard,
-  getAndValidateCardAttachment
+  getAndValidateCardAttachment,
+  getAndValidateBoardListCards
 } from '../validators/BoardListCard';
 import { getAndValidateBoardList } from '../validators/BoardList';
 import { BoardListCard as BoardListCardModel } from '../models/BoardListCard';
@@ -30,6 +31,7 @@ import Boom from '@hapi/boom';
 import path from 'path';
 import fs from 'fs';
 import { userInfo } from 'os';
+import { Json } from 'sequelize/types/lib/utils';
 
 @Controller('/card')
 @Flow([authorization])
@@ -110,7 +112,6 @@ export class BoardListCardController {
         commentCount: card.comments.length
       };
     });
-    console.log('卡片信息----------------------', boardListCardsData);
 
     return boardListCardsData;
   }
@@ -151,13 +152,14 @@ export class BoardListCardController {
   }
 
   /**
-   * 删除一个卡片
+   * 删除指定卡片
    */
-  @Delete('/:id(\\d+)')
-  public async deleteCard(@Ctx() ctx: Context, @Params('id') id: number) {
-    let boardListCard = await getAndValidateBoardListCard(id, ctx.userInfo.id);
-
-    await boardListCard.destroy();
+  @Delete('/idList')
+  public async deleteCard(@Ctx() ctx: Context, @Query('idList') data: string) {
+    const idList = JSON.parse(data);
+    let boardListCards = await getAndValidateBoardListCards(idList, ctx.userInfo.id);
+    console.log('====================', boardListCards);
+    // await boardListCards.destroy();
 
     ctx.status = 204;
     return;
@@ -222,7 +224,6 @@ export class BoardListCardController {
     await attachment.destroy();
     const attachmentPath = configs.storage.dir + '/' + attachment.name;
     const filePath = path.resolve(attachmentPath);
-    console.log('附件-------------------------', attachmentPath, filePath);
     fs.unlink(filePath, e => {
       if (e) {
         return console.log(e.message);

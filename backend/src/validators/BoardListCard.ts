@@ -96,6 +96,29 @@ export async function getAndValidateBoardListCard(
   return board;
 }
 
+export async function getAndValidateBoardListCards(
+  idList: Array<Number>,
+  userId: number
+): Promise<BoardListCardModel> {
+  const where = {
+    id: {
+      [BoardListCardModel.Op.or]: idList
+    }
+  };
+  let boardListCards = await BoardListCardModel.findAll({ where });
+
+  if (!boardListCards.length) {
+    throw Boom.notFound('指定卡片不存在');
+  }
+
+  if (boardListCards[0].userId !== userId) {
+    throw Boom.forbidden('禁止操作该列表');
+  }
+  await BoardListCardModel.destroy({ where });
+
+  return boardListCards;
+}
+
 export async function getAndValidateCardAttachment(
   id: number,
   userId: number

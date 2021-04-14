@@ -18,7 +18,7 @@
           :to="{ name: 'Board', params: { id: board.id } }"
         >
           <TListMenu class="bord-menu">
-            <li class="list-button list-remove" @click.prevent="removeBorad">删除</li>
+            <li class="list-button list-remove" @click.prevent="removeBorad(board.id)">删除</li>
           </TListMenu>
           <span v-if="userName == board.userName" class="belongTo">自己的看板</span>
           <span v-else class="belongTo">
@@ -204,30 +204,5 @@ export default {
     }
   }
 }
-#board {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  main {
-    display: flex;
-    overflow: scroll;
-    flex-direction: column;
-    position: relative;
-    padding: 10px;
-    height: 100%;
-    background-color: $background_color_15;
-    h2 {
-      height: 32px;
-      line-height: 32px;
-      color: $color_12;
-    }
-  }
-}
-.board {
-  display: flex;
-  padding-bottom: 8px;
-  position: absolute;
-  top: 60px;
-}
+
 </style>

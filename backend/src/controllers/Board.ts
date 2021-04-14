@@ -19,6 +19,7 @@ export class BoardController {
     board.name = name;
     board.userId = ctx.userInfo.id;
     board.userName = ctx.userName;
+    board.private = ctx.private;
     await board.save();
 
     ctx.status = 201;
@@ -26,11 +27,14 @@ export class BoardController {
   }
 
   /**
-   * 获取所有看板
+   * 获取所有公共看板
    */
   @Get('/public')
   public async getAllBoards(@Ctx() ctx: Context) {
-    let boards = await BoardModel.findAll();
+    let where = {
+      private: false
+    };
+    let boards = await BoardModel.findAll({ where });
     return boards;
   }
 
@@ -40,7 +44,8 @@ export class BoardController {
   @Get('')
   public async getBoards(@Ctx() ctx: Context) {
     let where = {
-      userId: ctx.userInfo.id
+      userId: ctx.userInfo.id,
+      private: true
     };
 
     let boards = await BoardModel.findAll({ where });

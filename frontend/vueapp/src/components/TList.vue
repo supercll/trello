@@ -58,7 +58,7 @@
           <textarea class="form-field-input" readonly>已完成任务</textarea>
 
           <TListMenu class="Tlist-menu">
-            <li @click.prevent="">删除已完成</li>
+            <li @click.prevent="removeCards">删除已完成</li>
           </TListMenu>
         </div>
 
@@ -99,7 +99,8 @@ export default {
         downElementY: 0
       },
       listAdding: false,
-      isMoreShow: false
+      isMoreShow: false,
+      idList: []
     };
   },
 
@@ -111,7 +112,8 @@ export default {
       return this.$store.getters['card/getUndoneCards'](this.data.id);
     },
     doneCards() {
-      return this.$store.getters['card/getDoneCards'](this.data.id);
+      const cardList = this.$store.getters['card/getDoneCards'](this.data.id);
+      return cardList;
     }
   },
 
@@ -224,6 +226,13 @@ export default {
       await this.$store.dispatch('list/removeList', {
         boardId: this.data.boardId,
         id: this.data.id
+      });
+    },
+    // 删除卡片
+    async removeCards() {
+      const idList = this.doneCards.map(item => item.id);
+      await this.$store.dispatch('card/removeCards', {
+        idList
       });
     },
 

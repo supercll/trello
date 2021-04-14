@@ -37,6 +37,14 @@ export default {
       });
     },
 
+    removeCards: (state, data) => {
+      const idList = data.idList;
+      state.cards = state.cards.filter(card => {
+        const cardId = card.id;
+        return !idList.some(id => id === cardId);
+      });
+    },
+
     addAttachment: (state, data) => {
       state.cards = state.cards.map(card => {
         if (card.id == data.boardListCardId) {
@@ -123,6 +131,19 @@ export default {
         let rs = await api.putCard(data);
 
         commit('updateCard', data);
+
+        return rs;
+      } catch (e) {
+        throw e;
+      }
+    },
+
+    removeCards: async ({ commit }, data) => {
+      try {
+
+        let rs = await api.removeCards(data.idList);
+
+        commit('removeCards', data);
 
         return rs;
       } catch (e) {

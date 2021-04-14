@@ -38,6 +38,12 @@ export class Board extends Model<Board> {
     allowNull: false
   })
   name: string;
+  @Column({
+    type: DataType.BOOLEAN,
+    allowNull: false,
+    defaultValue: true
+  })
+  private: Boolean;
 
   @CreatedAt
   createdAt: Date;

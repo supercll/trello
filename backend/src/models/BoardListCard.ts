@@ -10,6 +10,7 @@ import {
   Table,
   UpdatedAt
 } from 'sequelize-typescript';
+import { Op } from 'sequelize';
 import { BoardList } from './BoardList';
 import { User } from './User';
 import { CardAttachment } from './CardAttachment';
@@ -19,6 +20,7 @@ import { Comment } from './Comment';
   tableName: 'BoardListCard'
 })
 export class BoardListCard extends Model<BoardListCard> {
+  static Op = Op;
   @PrimaryKey
   @AutoIncrement
   @Column
