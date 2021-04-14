@@ -7,6 +7,9 @@
       <h2>
         <span class="icon icon-board"></span>
         看板列表
+        <button @click="onTogglePermission">
+          {{ private ? '显示公共面板' : '只显示私有面板' }}
+        </button>
       </h2>
       <ul class="board-items">
         <router-link
@@ -54,7 +57,8 @@ export default {
   data() {
     return {
       isMoreShow: false,
-      userName: null
+      userName: null,
+      private: false
     };
   },
 
@@ -70,9 +74,23 @@ export default {
     })
   },
 
+  watch: {
+    private: {
+      handler(val) {
+        val
+          ? this.$store.dispatch('board/getBoards')
+          : this.$store.dispatch('board/getPublicBoards');
+      }
+    }
+  },
+
   created() {
-    if (!this.inited) {
+    const privateStorage = localStorage.getItem('privateStorage');
+    this.private = privateStorage;
+    if (!this.inited && !privateStorage) {
       this.$store.dispatch('board/getPublicBoards');
+    } else if (!this.inited && privateStorage) {
+      this.$store.dispatch('board/getBoards');
     }
     const userName = JSON.parse(localStorage.getItem('user')).name;
     this.userName = userName;
@@ -100,6 +118,11 @@ export default {
         await this.$store.dispatch('board/removeBoard', id);
         this.$message.success('面板删除成功');
       } catch (e) {}
+    },
+    onTogglePermission() {
+      const change = !this.private;
+      this.private = change;
+      localStorage.setItem('privateStorage', change);
     }
   }
 };
@@ -204,5 +227,4 @@ export default {
     }
   }
 }
-
 </style>

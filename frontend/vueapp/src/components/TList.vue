@@ -227,13 +227,18 @@ export default {
         boardId: this.data.boardId,
         id: this.data.id
       });
+
+      this.$message.success('列表删除成功');
     },
     // 删除卡片
     async removeCards() {
-      const idList = this.doneCards.map(item => item.id);
-      await this.$store.dispatch('card/removeCards', {
-        idList
-      });
+      try {
+        const idList = this.doneCards.map(item => item.id);
+        await this.$store.dispatch('card/removeCards', {
+          idList
+        });
+        this.$message.success('卡片删除成功');
+      } catch (e) {}
     },
 
     hideListCardAddForm() {
