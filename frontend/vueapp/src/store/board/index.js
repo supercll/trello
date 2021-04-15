@@ -19,6 +19,9 @@ export default {
       state.boards = data;
       state.inited = true;
     },
+    putBoard: (state, data) => {
+      state.boards = state.boards.filter(item => item.id !== data.id);
+    },
 
     addBoard: (state, data) => {
       if (state.boards === null) {
@@ -42,11 +45,8 @@ export default {
   actions: {
     getPublicBoards: async ({ commit, state }) => {
       try {
-        let rs = JSON.parse(localStorage.getItem('publicBoards'));
-        if (!rs) {
-          rs = await api.getPublicBoards();
-          localStorage.setItem('publicBoards', JSON.stringify(rs));
-        }
+        const rs = await api.getPublicBoards();
+        // localStorage.setItem('publicBoards', JSON.stringify(rs));
         commit('updateBoards', rs.data);
 
         return rs;
@@ -56,11 +56,7 @@ export default {
     },
     getBoards: async ({ commit, state }) => {
       try {
-        let rs = JSON.parse(localStorage.getItem('privateBoards'));
-        if (!rs) {
-          rs = await api.getBoards();
-          localStorage.setItem('privateBoards', JSON.stringify(rs));
-        }
+        const rs = await api.getBoards();
 
         commit('updateBoards', rs.data);
 
@@ -74,7 +70,7 @@ export default {
       try {
         let rs = await api.getBoard(id);
 
-        commit('addBoard', rs.data);
+        // commit('addBoard', rs.data);
 
         return rs;
       } catch (e) {
@@ -84,7 +80,7 @@ export default {
 
     postBoard: async ({ commit, state }, data) => {
       try {
-        await api.postBoard(data);
+        const rs = await api.postBoard(data);
         commit('addBoard', rs.data);
 
         return rs;
@@ -92,13 +88,11 @@ export default {
         throw e;
       }
     },
-    putBoard: async ({ commit }, data) => {
+    putBoard: async ({ commit, state }, data) => {
       try {
-        let rs = await api.putBoard(data);
-        localStorage.setItem('privateBoards', null);
-        localStorage.setItem('publicBoards', null);
+        const rs = await api.putBoard(data);
 
-        commit('updateBoards', rs.data);
+        commit('putBoard', data);
 
         return rs;
       } catch (e) {

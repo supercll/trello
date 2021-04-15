@@ -153,9 +153,6 @@ export default {
           this.dialogFormVisible = false;
           this.$message.success('面板更新成功');
           this.postBoardForm = {};
-          this.showPrivate
-            ? this.$store.dispatch('board/getBoards')
-            : this.$store.dispatch('board/getPublicBoards');
         } catch (e) {}
       }
     },
