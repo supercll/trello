@@ -41,9 +41,9 @@ export class Board extends Model<Board> {
   @Column({
     type: DataType.BOOLEAN,
     allowNull: false,
-    defaultValue: true
+    defaultValue: false
   })
-  private: Boolean;
+  isPrivate: Boolean;
 
   @CreatedAt
   createdAt: Date;

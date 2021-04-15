@@ -7,9 +7,7 @@
       <h2>
         <span class="icon icon-board"></span>
         看板列表
-        <button @click="onTogglePermission">
-          {{ private ? '显示公共面板' : '只显示私有面板' }}
-        </button>
+        <el-switch v-model="showPrivate" active-text="只展示私有"></el-switch>
       </h2>
       <ul class="board-items">
         <router-link
@@ -21,6 +19,9 @@
           :to="{ name: 'Board', params: { id: board.id } }"
         >
           <TListMenu class="bord-menu">
+            <li class="list-button list-remove" @click.prevent="showPostDialog(board, 'put')">
+              设置
+            </li>
             <li class="list-button list-remove" @click.prevent="removeBorad(board.id)">删除</li>
           </TListMenu>
           <span v-if="userName == board.userName" class="belongTo">自己的看板</span>
@@ -37,10 +38,26 @@
             class="title form-field-input"
             placeholder="创建新看板"
             ref="newBoardName"
-            @blur="postBoard"
-            @keydown.enter.prevent="postBoard"
+            v-model="postBoardForm.title"
+            @blur="showPostDialog"
+            @keydown.enter.prevent="showPostDialog"
           ></textarea>
         </li>
+
+        <el-dialog title="面板属性" :visible.sync="dialogFormVisible">
+          <el-form :model="postBoardForm">
+            <el-form-item label="面板标题">
+              <el-input v-model="postBoardForm.title" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="是否私有">
+              <el-switch v-model="postBoardForm.isPrivate" active-text="请设置是否私有"></el-switch>
+            </el-form-item>
+          </el-form>
+          <div slot="footer" class="dialog-footer">
+            <el-button @click="postBoardCancel">取 消</el-button>
+            <el-button type="primary" @click="postBoard">确 定</el-button>
+          </div>
+        </el-dialog>
       </ul>
     </main>
   </div>
@@ -50,6 +67,7 @@
 import THeader from '@/components/THeader';
 import TListMenu from '@/components/TListMenu';
 import { mapState } from 'vuex';
+import { Switch, Dialog } from 'element-ui';
 
 export default {
   name: 'Home',
@@ -57,14 +75,23 @@ export default {
   data() {
     return {
       isMoreShow: false,
-      userName: null,
-      private: false
+      userName: JSON.parse(localStorage.getItem('user')).name,
+      showPrivate: false,
+      dialogFormVisible: false,
+      requestType: null,
+      postBoardForm: {
+        id: null,
+        title: '',
+        isPrivate: false
+      }
     };
   },
 
   components: {
     THeader,
-    TListMenu
+    TListMenu,
+    Switch,
+    Dialog
   },
 
   computed: {
@@ -75,32 +102,62 @@ export default {
   },
 
   created() {
-    const privateStorage = localStorage.getItem('privateStorage');
-    this.private = privateStorage;
+    const privateStorage = JSON.parse(localStorage.getItem('privateStorage'));
+    this.showPrivate = privateStorage;
     if (!this.inited && !privateStorage) {
       this.$store.dispatch('board/getPublicBoards');
     } else if (!this.inited && privateStorage) {
       this.$store.dispatch('board/getBoards');
     }
-    const userName = JSON.parse(localStorage.getItem('user')).name;
-    this.userName = userName;
+  },
+
+  watch: {
+    showPrivate: {
+      handler(val) {
+        const change = val;
+        change
+          ? this.$store.dispatch('board/getBoards')
+          : this.$store.dispatch('board/getPublicBoards');
+        localStorage.setItem('privateStorage', change);
+      }
+    }
   },
 
   methods: {
+    showPostDialog(board, type) {
+      this.dialogFormVisible = true;
+      this.requestType = type;
+      if (type === 'put') {
+        this.postBoardForm.id = board.id;
+        this.postBoardForm.isPrivate = board.isPrivate;
+        this.postBoardForm.title = board.name;
+      }
+    },
+    postBoardCancel() {
+      this.postBoardForm = {};
+      this.dialogFormVisible = false;
+    },
+
     async postBoard() {
-      let val = this.$refs.newBoardName.value;
-      const userName = JSON.parse(localStorage.getItem('user')).name;
-      if (val.trim() !== '') {
+      const type = this.requestType || 'post';
+      const { title, isPrivate, id } = this.postBoardForm;
+      console.log(type);
+      if (title.trim() !== '') {
         try {
-          await this.$store.dispatch('board/postBoard', {
-            name: val,
-            userName
+          await this.$store.dispatch(`board/${type}Board`, {
+            id,
+            name: title,
+            isPrivate
           });
 
-          this.$message.success('面板创建成功');
+          this.dialogFormVisible = false;
+          this.$message.success('面板更新成功');
+          this.postBoardForm = {};
+          this.showPrivate
+            ? this.$store.dispatch('board/getBoards')
+            : this.$store.dispatch('board/getPublicBoards');
         } catch (e) {}
       }
-      this.$refs.newBoardName.value = '';
     },
 
     async removeBorad(id) {
@@ -110,12 +167,12 @@ export default {
       } catch (e) {}
     },
     onTogglePermission() {
-      const change = !this.private;
+      const change = !this.showPrivate;
       change
         ? this.$store.dispatch('board/getBoards')
         : this.$store.dispatch('board/getPublicBoards');
       localStorage.setItem('privateStorage', change);
-      this.private = change;
+      this.showPrivate = change;
     }
   }
 };

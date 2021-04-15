@@ -1,4 +1,15 @@
-import { Controller, Ctx, Post, Get, Put, Delete, Flow, Params, Body } from 'koa-ts-controllers';
+import {
+  Controller,
+  Ctx,
+  Post,
+  Get,
+  Put,
+  Delete,
+  Flow,
+  Params,
+  Body,
+  Query
+} from 'koa-ts-controllers';
 import { Context } from 'koa';
 import authorization from '../middlewares/authorization';
 import { Board as BoardModel } from '../models/Board';
@@ -12,14 +23,14 @@ export class BoardController {
    */
   @Post('')
   public async addBoard(@Ctx() ctx: Context, @Body() body: PostAddBoardBody) {
-    let { name } = body;
+    let { name, isPrivate } = body;
 
     let board = new BoardModel();
 
     board.name = name;
     board.userId = ctx.userInfo.id;
-    board.userName = ctx.userName;
-    board.private = ctx.private;
+    board.userName = ctx.userInfo.name;
+    board.isPrivate = isPrivate;
     await board.save();
 
     ctx.status = 201;
@@ -32,7 +43,7 @@ export class BoardController {
   @Get('/public')
   public async getAllBoards(@Ctx() ctx: Context) {
     let where = {
-      private: false
+      isPrivate: false
     };
     let boards = await BoardModel.findAll({ where });
     return boards;
@@ -45,7 +56,7 @@ export class BoardController {
   public async getBoards(@Ctx() ctx: Context) {
     let where = {
       userId: ctx.userInfo.id,
-      private: true
+      isPrivate: true
     };
 
     let boards = await BoardModel.findAll({ where });
@@ -72,9 +83,9 @@ export class BoardController {
     @Body() body: PutUpdateBoardBody
   ) {
     let board = await getAndValidateBoard(id, ctx.userInfo.id);
-
     // 更新
-    board.name = body.name || board.name;
+    board.name = ctx.query.name || board.name;
+    board.isPrivate = ctx.query.isPrivate;
     await board.save();
 
     ctx.status = 204;

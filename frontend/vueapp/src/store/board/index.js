@@ -24,7 +24,12 @@ export default {
       if (state.boards === null) {
         state.boards = [];
       }
-      state.boards = [...state.boards, data];
+
+      const privateStorage = JSON.parse(localStorage.getItem('privateStorage'));
+
+      if (data.isPrivate === privateStorage) {
+        state.boards = [...state.boards, data];
+      }
     },
 
     removeBoard: (state, id) => {
@@ -77,11 +82,23 @@ export default {
       }
     },
 
-    postBoard: async ({ commit }, data) => {
+    postBoard: async ({ commit, state }, data) => {
       try {
-        let rs = await api.postBoard(data);
-
+        await api.postBoard(data);
         commit('addBoard', rs.data);
+
+        return rs;
+      } catch (e) {
+        throw e;
+      }
+    },
+    putBoard: async ({ commit }, data) => {
+      try {
+        let rs = await api.putBoard(data);
+        localStorage.setItem('privateBoards', null);
+        localStorage.setItem('publicBoards', null);
+
+        commit('updateBoards', rs.data);
 
         return rs;
       } catch (e) {
@@ -92,6 +109,8 @@ export default {
     removeBoard: async ({ commit }, id) => {
       try {
         await api.removeBoard(id);
+        localStorage.setItem('privateBoards', null);
+        localStorage.setItem('publicBoards', null);
         commit('removeBoard', id);
       } catch (e) {
         throw e;

@@ -83,6 +83,18 @@ export const removeBoard = id => {
     url: '/board/' + id
   });
 };
+// 更新指定面板
+export const putBoard = data => {
+  const { id, name, isPrivate } = data;
+  return axios({
+    method: 'put',
+    url: '/board/' + id,
+    params: {
+      name,
+      isPrivate
+    }
+  });
+};
 
 // 获取一个指定面板下的所有列表集合
 export const getLists = boardId => {

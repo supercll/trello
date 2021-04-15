@@ -28,10 +28,10 @@ module.exports = {
           type: Sequelize.DATE,
           allowNull: false
         },
-        private: {
+        isPrivate: {
           type: Sequelize.BOOLEAN,
           allowNull: false,
-          defaultValue: true
+          defaultValue: false
         }
       },
       {

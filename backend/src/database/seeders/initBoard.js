@@ -16,7 +16,7 @@ module.exports = {
       'lc',
       'test'
     ];
-    let privates = [false, true, true, false, false, true, false, false, false, false];
+    let isPrivates = [false, true, true, false, false, true, false, false, false, false];
 
     return queryInterface.bulkInsert(
       'Board',
@@ -29,7 +29,7 @@ module.exports = {
           name: 'board-' + id,
           createdAt: date,
           updatedAt: date,
-          private: privates[index]
+          isPrivate: isPrivates[index]
         };
       })
     );
