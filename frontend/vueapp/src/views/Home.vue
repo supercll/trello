@@ -74,16 +74,6 @@ export default {
     })
   },
 
-  watch: {
-    private: {
-      handler(val) {
-        val
-          ? this.$store.dispatch('board/getBoards')
-          : this.$store.dispatch('board/getPublicBoards');
-      }
-    }
-  },
-
   created() {
     const privateStorage = localStorage.getItem('privateStorage');
     this.private = privateStorage;
@@ -121,8 +111,11 @@ export default {
     },
     onTogglePermission() {
       const change = !this.private;
-      this.private = change;
+      change
+        ? this.$store.dispatch('board/getBoards')
+        : this.$store.dispatch('board/getPublicBoards');
       localStorage.setItem('privateStorage', change);
+      this.private = change;
     }
   }
 };
