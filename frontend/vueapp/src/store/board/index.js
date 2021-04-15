@@ -6,7 +6,7 @@ export default {
   state: {
     inited: false,
     // 设置为null，方便我们去判断当前是首次获取还是获取到的是一个空数据
-    boards: null,
+    boards: null
   },
 
   getters: {
@@ -35,10 +35,13 @@ export default {
   },
 
   actions: {
-    getPublicBoards: async ({ commit }) => {
+    getPublicBoards: async ({ commit, state }) => {
       try {
-        let rs = await api.getPublicBoards();
-
+        let rs = JSON.parse(localStorage.getItem('publicBoards'));
+        if (!rs) {
+          rs = await api.getPublicBoards();
+          localStorage.setItem('publicBoards', JSON.stringify(rs));
+        }
         commit('updateBoards', rs.data);
 
         return rs;
@@ -46,9 +49,13 @@ export default {
         throw e;
       }
     },
-    getBoards: async ({ commit }) => {
+    getBoards: async ({ commit, state }) => {
       try {
-        let rs = await api.getBoards();
+        let rs = JSON.parse(localStorage.getItem('privateBoards'));
+        if (!rs) {
+          rs = await api.getBoards();
+          localStorage.setItem('privateBoards', JSON.stringify(rs));
+        }
 
         commit('updateBoards', rs.data);
 
