@@ -20,7 +20,12 @@ export default {
       state.inited = true;
     },
     putBoard: (state, data) => {
-      state.boards = state.boards.filter(item => item.id !== data.id);
+      state.boards = state.boards.map(item => {
+        if (item.id === data.id) {
+          item = { ...item, ...data };
+        }
+        return item;
+      });
     },
 
     addBoard: (state, data) => {
@@ -45,8 +50,13 @@ export default {
   actions: {
     getPublicBoards: async ({ commit, state }) => {
       try {
-        const rs = await api.getPublicBoards();
-        // localStorage.setItem('publicBoards', JSON.stringify(rs));
+        let rs = JSON.parse(localStorage.getItem('publicBoardLocation'));
+
+        if (!rs) {
+          rs = await api.getPublicBoards();
+          localStorage.setItem('publicBoardLocation', JSON.stringify(rs));
+        }
+
         commit('updateBoards', rs.data);
 
         return rs;
@@ -56,7 +66,12 @@ export default {
     },
     getBoards: async ({ commit, state }) => {
       try {
-        const rs = await api.getBoards();
+        let rs = JSON.parse(localStorage.getItem('privateBoardLocation'));
+
+        if (!rs) {
+          rs = await api.getBoards();
+          localStorage.setItem('privateBoardLocation', JSON.stringify(rs));
+        }
 
         commit('updateBoards', rs.data);
 
@@ -80,6 +95,9 @@ export default {
 
     postBoard: async ({ commit, state }, data) => {
       try {
+        localStorage.setItem('privateBoardLocation', null);
+        localStorage.setItem('publicBoardLocation', null);
+
         const rs = await api.postBoard(data);
         commit('addBoard', rs.data);
 
@@ -90,6 +108,8 @@ export default {
     },
     putBoard: async ({ commit, state }, data) => {
       try {
+        localStorage.setItem('privateBoardLocation', null);
+        localStorage.setItem('publicBoardLocation', null);
         const rs = await api.putBoard(data);
 
         commit('putBoard', data);
@@ -102,9 +122,9 @@ export default {
 
     removeBoard: async ({ commit }, id) => {
       try {
+        localStorage.setItem('privateBoardLocation', null);
+        localStorage.setItem('publicBoardLocation', null);
         await api.removeBoard(id);
-        localStorage.setItem('privateBoards', null);
-        localStorage.setItem('publicBoards', null);
         commit('removeBoard', id);
       } catch (e) {
         throw e;
