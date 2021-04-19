@@ -3,8 +3,13 @@
     <t-header></t-header>
 
     <div class="echarts" ref="echarts_main">
-      <div id="echarts_pie" class="echarts-item" ref="echarts_pie"></div>
-      <div id="echarts_heatmap" class="echarts-item" ref="echarts_heatmap"></div>
+      <div class="echarts-container">
+        <div id="echarts_pie" class="echarts-item" ref="echarts_pie"></div>
+
+      </div>
+      <div class="echarts-container">
+        <div id="echarts_heatmap" class="echarts-item" ref="echarts_heatmap"></div>
+      </div>
     </div>
   </div>
 </template>
@@ -59,6 +64,8 @@ export default {
             type: 'pie',
             radius: ['40%', '70%'],
             avoidLabelOverlap: false,
+            left: 'center',
+
             itemStyle: {
               borderRadius: 10,
               borderColor: '#fff',
@@ -89,25 +96,16 @@ export default {
 
     loadheatmapChart() {
       const myHeatChart = echarts.init(this.$refs.echarts_heatmap);
-      const currentYear = new Date().getFullYear();
-      const doneCard = this.totalCard.doneCard;
-      function getVirtulData(year) {
-        year = year || '2021';
-        let date = +echarts.number.parseDate(year + '-01-01');
-        let end = +echarts.number.parseDate(year + '-12-31');
+      const totalCard = this.totalCard;
+      function getDate() {
+        let today = echarts.number.parseDate(new Date());
         let dayTime = 3600 * 24 * 1000;
-        let data = doneCard;
-        for (let time = date; time <= end; time += dayTime) {
-          data.push([
-            echarts.format.formatTime('yyyy-MM-dd', time),
-            Math.floor(Math.random() * 10000)
-          ]);
-        }
-        data = data.map(item => {
-          return item;
-        });
-        const res = [];
-        return data;
+        let thatday = today - dayTime * 365;
+        return {
+          data: totalCard.doneTimeTotal,
+          today: echarts.format.formatTime('yyyy-MM-dd', today),
+          thatday: echarts.format.formatTime('yyyy-MM-dd', thatday)
+        };
       }
 
       myHeatChart.setOption({
@@ -117,7 +115,7 @@ export default {
         tooltip: {
           position: 'top',
           formatter: function(p) {
-            var format = echarts.format.formatTime('yyyy-MM-dd', p.data[0]);
+            let format = echarts.format.formatTime('yyyy-MM-dd', p.data[0]);
             return format + ': ' + p.data[1];
           }
         },
@@ -127,15 +125,18 @@ export default {
           max: 10,
           calculable: true,
           right: '20%',
-          top: 'center',
-          orient: 'vertical',
-          color: ['#2980B9', '#6dd5fa']
+          top: '0',
+          // orient: 'vertical',
+          inRange: {
+            color: ['#81C4FF', '#6DBAFF', '#4EABFF', '#3DA3FF', '#2899FF', '#0488FF']
+          }
         },
 
         calendar: {
-          range: '2021',
-          orient: 'vertical',
-          left: 'center'
+          range: [getDate()['thatday'], getDate()['today']],
+          // orient: 'vertical',
+          left: 'center',
+          cellSize: [14, 14]
         },
         series: {
           type: 'heatmap',
@@ -166,18 +167,23 @@ export default {
 <style lang="scss">
 .echarts {
   display: flex;
+  flex-wrap: wrap;
   margin: 0 auto;
-  width: 1200px;
-  height: 600px;
+  height: 300px;
 
   &-item {
-    height: 100%;
     width: 100%;
-    border: solid 1px rgb(202, 202, 202);
+    height: 100%;
+  }
+  &-container {
+    width: 100%;
+    height: 100%;
     margin: 10px;
+    border: solid 1px rgb(221, 221, 221);
+    overflow-y: scroll;
+    overflow-x: hidden;
   }
   #echarts_heatmap {
-    overflow: scroll;
   }
 }
 </style>
