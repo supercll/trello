@@ -7,7 +7,8 @@ import Boom from '@hapi/boom';
 import crypto from 'crypto';
 import jwt from 'jsonwebtoken';
 import configs from '../configs';
-import { Model } from 'sequelize/types';
+import day from 'dayjs';
+import { Json } from 'sequelize/types/lib/utils';
 
 @Controller('/user')
 export class UserController {
@@ -104,20 +105,33 @@ export class UserController {
       .filter(card => card.status)
       .map(card => {
         const { updatedAt } = card;
-
+        const doneTime = day(updatedAt).format('YYYY-MM-DD');
         return {
           ...card,
-          doneTime: updatedAt
+          doneTime
         };
       });
 
+    const doneTimeTotalMap: Map<String, number> = new Map();
+    const doneTimeTotal: Array<[String, Number]> = [];
+
+    doneCard.forEach(item => {
+      const time = item.doneTime;
+      const cnt = doneTimeTotalMap.get(time);
+
+      cnt ? doneTimeTotalMap.set(time, cnt + 1) : doneTimeTotalMap.set(time, 1);
+    });
+    doneTimeTotalMap.forEach((value, key) => {
+      doneTimeTotal.push([key, value]);
+    });
     const res = {
       totalCardNumber: cards.count,
       doneCardNumber: doneCard.length,
       totalCard,
-      doneCard
+      doneCard,
+      doneTimeTotal
     };
 
-    return res;
+    return JSON.stringify(res);
   }
 }

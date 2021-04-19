@@ -25,6 +25,7 @@
     "@types/koa-router": "^7.4.0",
     "@types/koa-static-cache": "^5.1.0",
     "@types/node": "^13.9.5",
+    "dayjs": "^1.10.4",
     "sequelize-cli": "^5.5.1",
     "ts-node-dev": "^1.0.0-pre.44",
     "typescript": "^3.8.3"

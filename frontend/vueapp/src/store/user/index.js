@@ -54,7 +54,7 @@ export default {
     getTotalCard: async ({ commit }) => {
       try {
         const data = await getTotalCard();
-        commit('getTotalCard', data);
+        commit('getTotalCard', data.data);
         return data;
       } catch (err) {}
     }
