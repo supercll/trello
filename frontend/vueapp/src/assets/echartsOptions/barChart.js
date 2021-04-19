@@ -35,12 +35,12 @@ export const barChartOption = (doneCard, undoneCard) => {
     tooltip: {
       position: 'top',
       formatter: function(p) {
-          console.log(p)
-        return `${p.seriesName}数量: ${p.data}`
+        console.log(p);
+        return `${p.seriesName}数量: ${p.data}`;
       }
     },
     legend: {
-        data: ['已完成', '未完成']
+      show: true
     },
     xAxis: {
       type: 'category',
@@ -58,6 +58,16 @@ export const barChartOption = (doneCard, undoneCard) => {
       {
         data: getDate()['doneNumberList'],
         type: 'bar',
+        name: '未完成任务'
+      },
+      {
+        data: getDate()['undoneNumberList'],
+        type: 'line',
+        name: '已完成任务'
+      },
+      {
+        data: getDate()['doneNumberList'],
+        type: 'line',
         name: '未完成任务'
       }
     ]
