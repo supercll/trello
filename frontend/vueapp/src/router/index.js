@@ -47,7 +47,7 @@ const routes = [
     component: Login
   },
   {
-    path: '/Statistics',
+    path: '/statistics',
     name: 'Statistics',
     component: Statistics
   },
