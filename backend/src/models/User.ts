@@ -12,6 +12,7 @@ import {
     CreatedAt,
     UpdatedAt,
 } from "sequelize-typescript";
+
 import crypto from "crypto";
 
 // @DefaultScope(() => ({

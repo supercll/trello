@@ -47,6 +47,12 @@ export const login = data => {
     data
   });
 };
+// 获取所有卡片信息
+export const getTotalCard = () => {
+  return axios({
+    url: '/user/getTotalCard'
+  });
+};
 
 // 面板
 // 获取所有面板

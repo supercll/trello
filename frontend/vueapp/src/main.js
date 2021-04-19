@@ -7,6 +7,7 @@ import TMessage from '@/components/TMessage/TMessage.js';
 import '@/assets/css/css.scss';
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
+import './assets/echartsTheme.js';
 Vue.config.productionTip = false;
 
 Vue.prototype.$message = TMessage;

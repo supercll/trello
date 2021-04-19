@@ -44,7 +44,6 @@ $border_color_2: #e1f3d8;
 $border_color_3: #faecd8;
 $border_color_4: #fde2e2;
 
-
 html {
   height: 100%;
   color: $color_1;
@@ -107,3 +106,19 @@ input {
   margin: 0;
 }
 
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+/* 滚动槽 */
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+}
+
+/* 滚动条滑块 */
+::-webkit-scrollbar-thumb {
+  border-radius: inherit;
+  background-color: rgba(144, 147, 153, 0.3);
+  -webkit-transition: 0.3s background-color;
+  transition: 0.3s background-color;
+}
