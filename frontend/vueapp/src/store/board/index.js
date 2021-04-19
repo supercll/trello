@@ -20,11 +20,10 @@ export default {
       state.inited = true;
     },
     putBoard: (state, data) => {
-      state.boards = state.boards.map(item => {
-        if (item.id === data.id) {
-          item = { ...item, ...data };
+      state.boards = state.boards.filter(item => {
+        if (item.id !== data.id || item.isPrivate === data.isPrivate) {
+          return true;
         }
-        return item;
       });
     },
 
@@ -93,7 +92,7 @@ export default {
       }
     },
 
-    postBoard: async ({ commit, state }, data) => {
+    postBoard: async ({ commit }, data) => {
       try {
         localStorage.setItem('privateBoardLocation', null);
         localStorage.setItem('publicBoardLocation', null);
@@ -106,7 +105,7 @@ export default {
         throw e;
       }
     },
-    putBoard: async ({ commit, state }, data) => {
+    putBoard: async ({ commit }, data) => {
       try {
         localStorage.setItem('privateBoardLocation', null);
         localStorage.setItem('publicBoardLocation', null);

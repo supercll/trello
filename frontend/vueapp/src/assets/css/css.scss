@@ -182,6 +182,12 @@ input {
     background-color: $background_color_6;
   }
 }
+.board {
+  display: flex;
+  padding-bottom: 8px;
+  position: absolute;
+  top: 60px;
+}
 .message {
   min-width: 380px;
   -webkit-box-sizing: border-box;
@@ -521,9 +527,7 @@ header {
     display: block;
   }
 }
-.list-wrap.list-placeholder {
-  display: none;
-}
+
 .popup-container {
   position: relative;
 }

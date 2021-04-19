@@ -37,8 +37,8 @@ export const pieChartOption = (doneNumber, undoneNumber) => ({
         show: true
       },
       data: [
-        { value: doneNumber, name: '已完成' },
-        { value: undoneNumber, name: '未完成' }
+        { value: undoneNumber, name: '未完成' },
+        { value: doneNumber, name: '已完成' }
       ]
     }
   ]

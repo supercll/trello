@@ -37,7 +37,6 @@
           <textarea
             class="title form-field-input"
             placeholder="创建新看板"
-            ref="newBoardName"
             v-model="postBoardForm.title"
             @blur="showPostDialog"
             @keydown.enter.prevent="showPostDialog"
@@ -134,7 +133,8 @@ export default {
       }
     },
     postBoardCancel() {
-      this.postBoardForm = {};
+      this.postBoardForm = { id: null, title: '', isPrivate: false };
+
       this.dialogFormVisible = false;
     },
 
@@ -151,8 +151,8 @@ export default {
           });
 
           this.dialogFormVisible = false;
-          this.$message.success('面板更新成功');
-          this.postBoardForm = {};
+          this.postBoardForm = { id: null, title: '', isPrivate: false };
+          this.$message.success(`面板${type === 'post' ? '创建' : '更新'}成功`);
         } catch (e) {}
       }
     },

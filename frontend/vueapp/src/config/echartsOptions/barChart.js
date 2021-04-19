@@ -53,22 +53,22 @@ export const barChartOption = (doneCard, undoneCard) => {
       {
         data: getDate()['undoneNumberList'],
         type: 'bar',
-        name: '已完成任务'
+        name: '未完成'
       },
       {
         data: getDate()['doneNumberList'],
         type: 'bar',
-        name: '未完成任务'
+        name: '已完成'
       },
       {
         data: getDate()['undoneNumberList'],
         type: 'line',
-        name: '已完成任务'
+        name: '未完成'
       },
       {
         data: getDate()['doneNumberList'],
         type: 'line',
-        name: '未完成任务'
+        name: '已完成'
       }
     ]
   };

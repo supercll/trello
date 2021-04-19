@@ -51,7 +51,7 @@ export const calendarYear = (type, data) => ({
     position: 'top',
     formatter: function(p) {
       let format = echarts.format.formatTime('yyyy-MM-dd', p.data[0]);
-      return format + ': ' + p.data[1];
+      return `${format}: ${p.data[1]}`;
     }
   },
   visualMap: {
@@ -91,7 +91,7 @@ export const calendarWeek = (type, data) => ({
     position: 'top',
     formatter: function(p) {
       let format = echarts.format.formatTime('yyyy-MM-dd', p.data[0]);
-      return format + ': ' + p.data[1];
+      return `${format}: ${p.data[1]}`;
     }
   },
 

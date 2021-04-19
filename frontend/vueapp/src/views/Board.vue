@@ -210,10 +210,5 @@ export default {
     }
   }
 }
-.board {
-  display: flex;
-  padding-bottom: 8px;
-  position: absolute;
-  top: 60px;
-}
+
 </style>

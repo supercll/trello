@@ -25,9 +25,9 @@
 <script>
 import THeader from '@/components/THeader';
 import { mapState } from 'vuex';
-import { calendarYear, calendarWeek } from '../assets/echartsOptions/heatMap.js';
-import { pieChartOption } from '../assets/echartsOptions/pieCharts.js';
-import { barChartOption } from '../assets/echartsOptions/barChart.js';
+import { calendarYear, calendarWeek } from '../../src/config/echartsOptions/heatMap.js';
+import { pieChartOption } from '../../src/config/echartsOptions/pieCharts.js';
+import { barChartOption } from '../../src/config/echartsOptions/barChart.js';
 import { Button } from 'element-ui';
 import * as echarts from 'echarts/core';
 
@@ -77,8 +77,8 @@ export default {
     })
   },
 
-  async created() {
-    await this.$store.dispatch('user/getTotalCard');
+  created() {
+    this.$store.dispatch('user/getTotalCard');
   },
 
   mounted() {

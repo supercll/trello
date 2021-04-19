@@ -278,7 +278,9 @@ export default {
     color: rgb(0, 121, 191);
   }
 }
-
+.list-wrap.list-placeholder {
+  display: none;
+}
 .list-wrap {
   position: relative;
   display: inline-block;
