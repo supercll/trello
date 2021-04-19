@@ -31,7 +31,6 @@ export default {
       if (state.boards === null) {
         state.boards = [];
       }
-
       const privateStorage = JSON.parse(localStorage.getItem('privateStorage'));
 
       if (data.isPrivate === privateStorage) {
@@ -63,7 +62,7 @@ export default {
         throw e;
       }
     },
-    getBoards: async ({ commit, state }) => {
+    getBoards: async ({ commit }) => {
       try {
         let rs = JSON.parse(localStorage.getItem('privateBoardLocation'));
 
@@ -82,9 +81,9 @@ export default {
 
     getBoard: async ({ commit }, id) => {
       try {
-        let rs = await api.getBoard(id);
-
-        // commit('addBoard', rs.data);
+        const rs = await api.getBoard(id);
+        console.log(rs.data);
+        commit('addBoard', rs.data);
 
         return rs;
       } catch (e) {

@@ -43,6 +43,13 @@ export default {
     Button
   },
 
+  watch: {
+    totalCard() {
+      this.lodeECharts();
+      this.loadheatmapChart();
+    }
+  },
+
   methods: {
     lodeECharts() {
       const myPieChart = echarts.init(this.$refs.echarts_pie);
@@ -78,12 +85,16 @@ export default {
   },
 
   created() {
-    this.$store.dispatch('user/getTotalCard');
+    if (!this.totalCard) {
+      this.$store.dispatch('user/getTotalCard');
+    }
   },
 
   mounted() {
-    this.lodeECharts();
-    this.loadheatmapChart();
+    if (this.totalCard) {
+      this.lodeECharts();
+      this.loadheatmapChart();
+    }
   }
 };
 </script>

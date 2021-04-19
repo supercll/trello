@@ -35,7 +35,6 @@ export const barChartOption = (doneCard, undoneCard) => {
     tooltip: {
       position: 'top',
       formatter: function(p) {
-        console.log(p);
         return `${p.seriesName}数量: ${p.data}`;
       }
     },

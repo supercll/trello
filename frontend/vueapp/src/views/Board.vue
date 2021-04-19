@@ -79,9 +79,9 @@ export default {
     }
   },
 
-  created() {
+  async created() {
     if (!this.board) {
-      this.$store.dispatch('board/getBoard', this.$route.params.id);
+      await this.$store.dispatch('board/getBoard', this.$route.params.id);
     }
     if (!this.lists.length) {
       this.$store.dispatch('list/getLists', this.$route.params.id);
@@ -210,5 +210,4 @@ export default {
     }
   }
 }
-
 </style>

@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import store from '@/store';
+// import Statistics from '../views/Statistics.vue';
 
 const Home = () => import(/* webpackChunkName: "Home" */ '../views/Home.vue');
 const Board = () => import(/* webpackChunkName: "Board" */ '../views/Board.vue');
