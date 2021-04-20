@@ -1,15 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <link rel="icon" href="<%= BASE_URL %>favicon.ico" />
     <title><%= htmlWebpackPlugin.options.title %></title>
   </head>
   <body>
+    <script src="https://lib.baomitu.com/vue/2.6.11/vue.runtime.min.js"></script>
+    <script
+      crossorigin="anonymous"
+      integrity="sha512-c5QVsHf336TmWncPySsNK2ncFiVsPEWOiJGDH/Le/5U6q1hU6F5B7ziAgRwCokxjmu4HZBkfWsQg/D/+X3hFww=="
+      src="https://lib.baomitu.com/vue-router/3.5.1/vue-router.min.js"
+    ></script>
+    <script src="https://lib.baomitu.com/vuex/3.6.2/vuex.min.js"></script>
+    <script src="https://lib.baomitu.com/axios/0.19.2/axios.min.js"></script>
+    <script src="https://lib.baomitu.com/echarts/5.1.0/echarts.min.js"></script>
+    <script
+      crossorigin="anonymous"
+      integrity="sha512-FEx958Kl8iI/lG1UmyYhyLaQln/zW7+QtQLYmpEIZ4ITwvhEvyQdnLgcCLWXgxO4VNql65Zh0OL7Jhw2Kvn1UQ=="
+      src="https://lib.baomitu.com/element-ui/2.15.1/index.min.js"
+    ></script>
     <noscript>
-      <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+      <strong>
+        We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without
+        JavaScript enabled. Please enable it to continue.
+      </strong>
     </noscript>
     <div id="app"></div>
     <!-- built files will be auto injected -->

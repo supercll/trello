@@ -1,6 +1,7 @@
 const path = require('path');
 module.exports = {
   productionSourceMap: process.env.NODE_ENV === 'development',
+  css: { extract: true },
   configureWebpack: config => {
     config.module.rules.push({
       test: /\.scss$/,
@@ -15,6 +16,20 @@ module.exports = {
           }
         }
       ]
+    });
+  },
+
+  chainWebpack: config => {
+    config.optimization.splitChunks({
+      chunks: 'all'
+    });
+    config.externals({
+      vue: 'Vue',
+      vuex: 'Vuex',
+      'vue-router': 'VueRouter',
+      axios: 'axios',
+      echarts: 'echarts',
+      'element-ui': 'Element-ui'
     });
   },
 
