@@ -1,5 +1,7 @@
 import * as echarts from 'echarts/core';
-
+import { TitleComponent } from 'echarts/components';
+import { LineChart, BarChart } from 'echarts/charts';
+echarts.use([LineChart, BarChart, TitleComponent]);
 export const barChartOption = (doneCard, undoneCard) => {
   function getDate() {
     let today = echarts.number.parseDate(new Date());
